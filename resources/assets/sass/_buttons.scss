@@ -1,0 +1,87 @@
+.btn {
+    border-radius: 999px
+  }
+  
+.btn-outline-success {
+    color: $green;
+    border-color: $green;
+    background-color: white;
+  
+    &:active, &:focus, &:hover {
+      background-color: $green !important;
+      border-color: $green !important;
+      color: white;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+    }
+}
+
+.btn-outline-danger {
+    color: $red;
+    border-color: $red;
+    background-color: white;
+  
+    &:active, &:focus, &:hover {
+      background-color: $red !important;
+      border-color: $red !important;
+      color: white;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+    }
+}
+
+.btn-outline-warning {
+    color: $orange;
+    border-color: $orange;
+    background-color: white;
+  
+    &:active, &:focus, &:hover {
+      background-color: $orange !important;
+      border-color: $orange !important;
+      color: white;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+    }
+}
+
+.btn-outline-purple {
+    color: $purple;
+    border-color: $purple;
+    background-color: white;
+  
+    &:active, &:focus, &:hover {
+      background-color: $purple !important;
+      border-color: $purple !important;
+      color: white;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+    }
+}
+  
+.btn-create {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    height: 60px;
+    width: 60px;
+    color: white;
+    background-color: $green;
+    border-radius: 100%;
+    padding-top: 0;
+}
+
+.btn-signout {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 60px;
+    width: 60px;
+    color: white;
+    background-color: $purple;
+    border-radius: 100%;
+    padding-top: 0;
+}
