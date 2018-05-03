@@ -7,7 +7,7 @@
                         <p class="mb-0">Reply by <span>User ID to Name</span></p>
                     </a>
 
-                    <div>{time} ago...</div>
+                    <div>{time} ago (moment)</div>
                 </div>
             </div>
 
