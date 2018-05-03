@@ -15,14 +15,14 @@
                 <div v-if="editing">
                     <div class="form-group">
                         <label>Link:</label>
-                        <input v-model="reply.link" class="form-control f-xs main-grey " />
+                        <input v-model="link" class="form-control f-xs main-grey " />
 
                         <label class="mt-2">Description:</label>
-                        <textarea rows="2" v-model="reply.body" class="form-control f-xs main-grey"></textarea>
+                        <textarea rows="2" v-model="body" class="form-control f-xs main-grey"></textarea>
 
                         <div class="mt-2 float-right">
                             <button  class="p-2 btn btn-outline-purple btn-sm" @click="editing = false">Cancel</button>
-                            <button class="p-2 btn btn-outline-danger btn-sm" @click="destroy">Delete</button>
+                            <button class="p-2 btn btn-outline-success btn-sm" @click="update">Update</button>
                         </div>
                     </div>
                 </div>
@@ -33,13 +33,13 @@
                             <i class="fab fa-youtube"></i>
                         </div>
 
-                        <a class="flex ml-3" :href="reply.link">
-                            <div><em v-html="reply.link.replace(/(^\w+:|^)\/\//, '')"></em></div>
+                        <a class="flex ml-3" :href="link">
+                            <div><em v-html="link.replace(/(^\w+:|^)\/\//, '')"></em></div>
                         </a>
                     </div>
                         
 
-                    <div v-text="reply.body"></div>
+                    <div v-text="body"></div>
 
                     <div v-if="authorise" class="float-right mt-2">
                         <div v-if="!editing">
@@ -60,7 +60,8 @@ export default {
     data() {
         return{
             editing: false,
-            body: '',
+            body: this.reply.body,
+            link: this.reply.link
         };
     },
 
@@ -79,8 +80,35 @@ export default {
     },
 
     methods: {
-        destroy() {
+        update() {
+            axios.patch('/replies/' + this.reply.id, {
+                body: this.body,
+                link: this.link,
+            })
+                .then( response => {
+                    flash('Reply successfully updated!')
 
+                    this.editing = false
+                })
+                .catch(err => {
+                    flash('Oops! Something went wrong', 'danger')
+
+                    console.log(err)
+                })
+        },
+
+        destroy() {
+            axios.delete('/replies/' + this.reply.id)
+                .then( response => {
+                    flash('Reply successfully deleted!')
+
+                    this.$emit('destroyed')
+                })
+                .catch(err => {
+                    flash('Oops! Something went wrong', 'danger')
+
+                    console.log(err)
+                })
         }
     }
 

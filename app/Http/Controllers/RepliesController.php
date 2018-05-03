@@ -88,7 +88,18 @@ class RepliesController extends Controller
      */
     public function update(Request $request, Reply $reply)
     {
-        //
+        $this->authorize('update', $reply);
+
+        $request->validate([
+            'body' => 'required_without:link',
+            'link' => 'required_without:body',
+        ]);
+
+        $reply->update([
+            'body'      => request('body'),
+            'link'      => request('link'),
+        ]);
+
     }
 
     /**

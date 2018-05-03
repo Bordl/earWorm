@@ -34,7 +34,7 @@
 				this.translateValue = 0
 
 				setTimeout(() => this.toggle(), 200)
-				setTimeout(() => this.hide(), 3200)
+				setTimeout(() => this.hide(), 3000)
 				
 			},
 
@@ -45,7 +45,7 @@
 			hide() {
 				this.translateValue = 100
 				setTimeout(() => this.toggle(), 200)
-				setTimeout(() => this.show = false, 3200)
+				setTimeout(() => this.show = false, 3000)
 			}
 		}
 

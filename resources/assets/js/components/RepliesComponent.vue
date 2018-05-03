@@ -48,7 +48,7 @@
                 <p class="text-center f-reg semiBold mb-2">All replies</p>
 
                 <div v-for="reply in replies" :key="reply.id">
-                    <reply-component :reply="reply"></reply-component>
+                    <reply-component @destroyed="fetch" :reply="reply"></reply-component>
                 </div>
             </div>
 

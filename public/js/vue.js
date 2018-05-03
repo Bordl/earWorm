@@ -16080,7 +16080,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16153,7 +16153,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             editing: false,
-            body: ''
+            body: this.reply.body,
+            link: this.reply.link
         };
     },
 
@@ -16171,7 +16172,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        destroy: function destroy() {}
+        update: function update() {
+            var _this = this;
+
+            axios.patch('/replies/' + this.reply.id, {
+                body: this.body,
+                link: this.link
+            }).then(function (response) {
+                flash('Reply successfully updated!');
+
+                _this.editing = false;
+            }).catch(function (err) {
+                flash('Oops! Something went wrong', 'danger');
+
+                console.log(err);
+            });
+        },
+        destroy: function destroy() {
+            var _this2 = this;
+
+            axios.delete('/replies/' + this.reply.id).then(function (response) {
+                flash('Reply successfully deleted!');
+
+                _this2.$emit('destroyed');
+            }).catch(function (err) {
+                flash('Oops! Something went wrong', 'danger');
+
+                console.log(err);
+            });
+        }
     }
 
 });
@@ -16199,18 +16228,18 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.reply.link,
-                      expression: "reply.link"
+                      value: _vm.link,
+                      expression: "link"
                     }
                   ],
                   staticClass: "form-control f-xs main-grey ",
-                  domProps: { value: _vm.reply.link },
+                  domProps: { value: _vm.link },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.reply, "link", $event.target.value)
+                      _vm.link = $event.target.value
                     }
                   }
                 }),
@@ -16222,19 +16251,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.reply.body,
-                      expression: "reply.body"
+                      value: _vm.body,
+                      expression: "body"
                     }
                   ],
                   staticClass: "form-control f-xs main-grey",
                   attrs: { rows: "2" },
-                  domProps: { value: _vm.reply.body },
+                  domProps: { value: _vm.body },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.reply, "body", $event.target.value)
+                      _vm.body = $event.target.value
                     }
                   }
                 }),
@@ -16256,10 +16285,10 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "p-2 btn btn-outline-danger btn-sm",
-                      on: { click: _vm.destroy }
+                      staticClass: "p-2 btn btn-outline-success btn-sm",
+                      on: { click: _vm.update }
                     },
-                    [_vm._v("Delete")]
+                    [_vm._v("Update")]
                   )
                 ])
               ])
@@ -16270,13 +16299,13 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "a",
-                  { staticClass: "flex ml-3", attrs: { href: _vm.reply.link } },
+                  { staticClass: "flex ml-3", attrs: { href: _vm.link } },
                   [
                     _c("div", [
                       _c("em", {
                         domProps: {
                           innerHTML: _vm._s(
-                            _vm.reply.link.replace(/(^\w+:|^)\/\//, "")
+                            _vm.link.replace(/(^\w+:|^)\/\//, "")
                           )
                         }
                       })
@@ -16285,7 +16314,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { domProps: { textContent: _vm._s(_vm.reply.body) } }),
+              _c("div", { domProps: { textContent: _vm._s(_vm.body) } }),
               _vm._v(" "),
               _vm.authorise
                 ? _c("div", { staticClass: "float-right mt-2" }, [
@@ -16335,7 +16364,7 @@ var staticRenderFns = [
           ])
         ]),
         _vm._v(" "),
-        _c("div", [_vm._v("{time} ago...")])
+        _c("div", [_vm._v("{time} ago (moment)")])
       ])
     ])
   },
@@ -16756,7 +16785,12 @@ var render = function() {
                       return _c(
                         "div",
                         { key: reply.id },
-                        [_c("reply-component", { attrs: { reply: reply } })],
+                        [
+                          _c("reply-component", {
+                            attrs: { reply: reply },
+                            on: { destroyed: _vm.fetch }
+                          })
+                        ],
                         1
                       )
                     })
@@ -17091,7 +17125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 flash('Your recording has been submitted!');
                 setTimeout(function () {
                     return _this3.$router.go(-1);
-                }, 4000);
+                }, 3000);
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
                 console.log(err);
@@ -17655,7 +17689,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, 200);
 			setTimeout(function () {
 				return _this2.hide();
-			}, 3200);
+			}, 3000);
 		},
 		toggle: function toggle() {
 			document.getElementById('flash').style.transform = "translateX(" + this.translateValue + "vw)";
@@ -17669,7 +17703,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, 200);
 			setTimeout(function () {
 				return _this3.show = false;
-			}, 3200);
+			}, 3000);
 		}
 	}
 
