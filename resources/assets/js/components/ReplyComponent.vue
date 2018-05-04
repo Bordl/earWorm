@@ -28,7 +28,7 @@
                 </div>
 
                 <div v-else>
-                    <div class="mb-0 level">
+                    <div v-if="link" class="mb-0 level">
                         <div class="f-md">
                             <i class="fab fa-youtube"></i>
                         </div>
@@ -39,7 +39,7 @@
                     </div>
                         
 
-                    <div v-text="body"></div>
+                    <div v-if="body" v-text="body"></div>
 
                     <div v-if="authorise" class="float-right mt-2">
                         <div v-if="!editing">
