@@ -29,13 +29,13 @@
 
                 <div v-else>
                     <div v-if="link" class="mb-0">
-                        <div class="flex">
+                        <div class="level">
                             <div class="f-md">
                                 <i class="fab fa-youtube"></i>
                             </div>
 
                             <a class="flex ml-3" :href="link">
-                                <div><em v-html="link.replace(/(^\w+:|^)\/\//, '')"></em></div>
+                                <div><em v-html="link.replace(/(^\w+:|^)\/\//, '').substr(0, 30) + '...'"></em></div>
                             </a>
                         </div>
 

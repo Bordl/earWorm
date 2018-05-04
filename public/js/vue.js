@@ -16300,7 +16300,7 @@ var render = function() {
           : _c("div", [
               _vm.link
                 ? _c("div", { staticClass: "mb-0" }, [
-                    _c("div", { staticClass: "flex" }, [
+                    _c("div", { staticClass: "level" }, [
                       _vm._m(1),
                       _vm._v(" "),
                       _c(
@@ -16311,7 +16311,9 @@ var render = function() {
                             _c("em", {
                               domProps: {
                                 innerHTML: _vm._s(
-                                  _vm.link.replace(/(^\w+:|^)\/\//, "")
+                                  _vm.link
+                                    .replace(/(^\w+:|^)\/\//, "")
+                                    .substr(0, 30) + "..."
                                 )
                               }
                             })
