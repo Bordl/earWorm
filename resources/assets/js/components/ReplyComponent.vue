@@ -30,7 +30,7 @@
                 <div v-else>
                     <div v-if="link" class="mb-0">
                         <div class="level">
-                            <div class="f-md">
+                            <div class="f-md red">
                                 <i class="fab fa-youtube"></i>
                             </div>
 
