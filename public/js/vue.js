@@ -16788,7 +16788,7 @@ var render = function() {
                     _vm._l(_vm.replies, function(reply) {
                       return _c(
                         "div",
-                        { key: reply.id },
+                        { key: reply.id, staticClass: "mb-3" },
                         [
                           _c("reply-component", {
                             attrs: { reply: reply },

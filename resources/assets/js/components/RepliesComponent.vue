@@ -47,7 +47,7 @@
             <div class="col-11" v-if="replies.length > 0">
                 <p class="text-center f-reg semiBold mb-2">All replies</p>
 
-                <div v-for="reply in replies" :key="reply.id">
+                <div v-for="reply in replies" :key="reply.id" class="mb-3">
                     <reply-component @destroyed="fetch" :reply="reply"></reply-component>
                 </div>
             </div>
