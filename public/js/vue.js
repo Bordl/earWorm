@@ -16080,7 +16080,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16091,6 +16091,10 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -16295,24 +16299,28 @@ var render = function() {
             ])
           : _c("div", [
               _vm.link
-                ? _c("div", { staticClass: "mb-0 level" }, [
-                    _vm._m(1),
+                ? _c("div", { staticClass: "mb-0" }, [
+                    _c("div", { staticClass: "flex" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "flex ml-3", attrs: { href: _vm.link } },
+                        [
+                          _c("div", [
+                            _c("em", {
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  _vm.link.replace(/(^\w+:|^)\/\//, "")
+                                )
+                              }
+                            })
+                          ])
+                        ]
+                      )
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "flex ml-3", attrs: { href: _vm.link } },
-                      [
-                        _c("div", [
-                          _c("em", {
-                            domProps: {
-                              innerHTML: _vm._s(
-                                _vm.link.replace(/(^\w+:|^)\/\//, "")
-                              )
-                            }
-                          })
-                        ])
-                      ]
-                    )
+                    _c("hr")
                   ])
                 : _vm._e(),
               _vm._v(" "),

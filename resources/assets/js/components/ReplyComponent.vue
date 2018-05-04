@@ -28,14 +28,18 @@
                 </div>
 
                 <div v-else>
-                    <div v-if="link" class="mb-0 level">
-                        <div class="f-md">
-                            <i class="fab fa-youtube"></i>
+                    <div v-if="link" class="mb-0">
+                        <div class="flex">
+                            <div class="f-md">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+
+                            <a class="flex ml-3" :href="link">
+                                <div><em v-html="link.replace(/(^\w+:|^)\/\//, '')"></em></div>
+                            </a>
                         </div>
 
-                        <a class="flex ml-3" :href="link">
-                            <div><em v-html="link.replace(/(^\w+:|^)\/\//, '')"></em></div>
-                        </a>
+                        <hr>
                     </div>
                         
 
