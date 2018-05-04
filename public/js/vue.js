@@ -16554,7 +16554,7 @@ var render = function() {
     _vm.signedIn
       ? _c("div", [
           _c("p", { staticClass: "mb-2 text-center semiBold" }, [
-            _vm._v("Leave a reply")
+            _vm._v("Leave a reply please")
           ]),
           _vm._v(" "),
           _c(
@@ -16570,7 +16570,7 @@ var render = function() {
             [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { staticClass: "f-xs" }, [
-                  _vm._v("Please provide a link")
+                  _vm._v("Please provide a link to YouTube")
                 ]),
                 _vm._v(" "),
                 _c("input", {
