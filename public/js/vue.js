@@ -16554,7 +16554,7 @@ var render = function() {
     _vm.signedIn
       ? _c("div", [
           _c("p", { staticClass: "mb-2 text-center semiBold" }, [
-            _vm._v("Leave a reply hello")
+            _vm._v("Leave a reply")
           ]),
           _vm._v(" "),
           _c(
