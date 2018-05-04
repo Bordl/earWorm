@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div v-if="signedIn">
-			<p class="mb-2 text-center semiBold">Leave a reply Please</p>
+			<p class="mb-2 text-center semiBold">Leave a reply thak you</p>
             <form @submit.prevent="addReply">
                 <div class="form-group">
                     <label class="f-xs">Please provide a link to YouTube</label>
