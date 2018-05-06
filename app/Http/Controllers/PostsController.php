@@ -50,9 +50,10 @@ class PostsController extends Controller
         $post = Post::create([
             'user_id'   => request('user_id'),
             'description'   => request('description')
-        ])->favorite();
+        ]);
 
         $postID = $post->id;
+        $post->favorite();
 
         return $postID;
     }

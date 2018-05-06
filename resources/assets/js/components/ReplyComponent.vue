@@ -184,7 +184,7 @@ export default {
                 .then( response => {
                     flash('Reply successfully deleted!')
 
-                    this.$emit('destroyed')
+                    this.$emit('destroyed', this.reply.id)
                 })
                 .catch(err => {
                     flash('Oops! Something went wrong', 'danger')

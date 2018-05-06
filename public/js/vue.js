@@ -15907,7 +15907,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16047,6 +16047,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.post = data;
                 _this.replies = data.replies;
             });
+        },
+        remove: function remove(index) {
+            this.replies.splice(index, 1);
         },
         destroy: function destroy() {
             var _this2 = this;
@@ -16355,7 +16358,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.delete('/replies/' + this.reply.id).then(function (response) {
                 flash('Reply successfully deleted!');
 
-                _this4.$emit('destroyed');
+                _this4.$emit('destroyed', _this4.reply.id);
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -17065,7 +17068,7 @@ var render = function() {
                       [_vm._v("All replies")]
                     ),
                     _vm._v(" "),
-                    _vm._l(_vm.replies, function(reply) {
+                    _vm._l(_vm.replies, function(reply, index) {
                       return _c(
                         "div",
                         { key: reply.id, staticClass: "mb-3" },
@@ -17076,7 +17079,12 @@ var render = function() {
                               id: "reply-" + reply.id,
                               reply: reply
                             },
-                            on: { destroyed: _vm.fetch, answered: _vm.fetch }
+                            on: {
+                              destroyed: function($event) {
+                                _vm.remove(index)
+                              },
+                              answered: _vm.fetch
+                            }
                           })
                         ],
                         1
