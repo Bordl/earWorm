@@ -170,6 +170,7 @@ export default {
 
         removeRecording() {
             this.isRecording = false
+            this.isPlaying = false
             this.recordingData = []
             this.dataUrl = ''
         },
@@ -212,7 +213,7 @@ export default {
             axios.post('/recordings', formData )
                 .then(response => {
                     flash('Your recording has been submitted!')
-                    setTimeout(() => this.$router.go(-1), 3000)
+                    this.$router.push('home')
                 })
                 .catch(err => {
                     flash('Oops! Something went wrong', 'danger')

@@ -43,10 +43,10 @@
                         </p>
 
                         <div class="semiBold">
-                            <p v-if="post.answered == 0" class="red mb-0"><em>Not Answered</em></p>
+                            <p v-if="post.validate == 0" class="red mb-0"><em>Not Answered</em></p>
                             <p v-else class="green mb-0">
+                                Answered!&nbsp;
                                 <i class="fas fa-check"></i>
-                                &nbsp;Answered!
                             </p>
                         </div>
                     </router-link>

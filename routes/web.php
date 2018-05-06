@@ -17,6 +17,7 @@ Route::delete('/posts/{post}', 'PostsController@destroy');
 Route::post('/posts/{post}/replies', 'RepliesController@store');
 Route::delete('/replies/{reply}', 'RepliesController@destroy');
 Route::patch('/replies/{reply}', 'RepliesController@update');
+Route::patch('/replies/validate/{reply}', 'RepliesController@validated');
 Route::post('/recordings', 'RecordingsController@store');
 Route::get('/recordings/{recording}', 'RecordingsController@show');
 

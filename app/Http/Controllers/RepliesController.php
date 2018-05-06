@@ -93,11 +93,24 @@ class RepliesController extends Controller
         $request->validate([
             'body' => 'required_without:link',
             'link' => 'required_without:body',
+            'validate' => 'integer',
         ]);
 
         $reply->update([
             'body'      => request('body'),
             'link'      => request('link'),
+            'validate'      => request('validate'),
+        ]);
+
+    }
+
+
+    public function validated(Request $request, Reply $reply)
+    {
+        if(auth()->id() !== request('user_id')) return;
+
+        $reply->update([
+            'validate'      => request('validate'),
         ]);
 
     }

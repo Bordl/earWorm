@@ -1,13 +1,26 @@
 <template>
     <div>
-        <div class="card f-xs">
+        <div class="card f-xs" :class="isRightAnswer">
             <div class="card-header">
                 <div class="level">
-                    <a href="" class="flex">
-                        <p class="mb-0">Reply by <span>User ID to Name</span></p>
-                    </a>
+                    <div class="flex">
+                        <p class="mb-0">
+                            <a :href="'/profiles/' + reply.user_id">
+                                <span><em v-text="reply.owner.name"></em></span>&nbsp;
+                            </a>
 
-                    <div>{time} ago (moment)</div>
+                            <span v-text="moment(reply.created_at)"></span>
+                        </p>
+                    </div>
+                    <div v-if="creator && reply.validate == 0" class="float-right">
+                        <button class="btn btn-sm btn-outline-success f-xxs" @click="validated">
+                            <i class="fas fa-check"></i> Right answer
+                        </button>
+                    </div>
+
+                    <div v-show="reply.validate == 1" class="green">
+                        <i class="fas fa-check"></i>
+                    </div>
                 </div>
             </div>
 
@@ -21,7 +34,7 @@
                         <textarea rows="2" v-model="body" class="form-control f-xs main-grey"></textarea>
 
                         <div class="mt-2 float-right">
-                            <button  class="p-2 btn btn-outline-purple btn-sm" @click="editing = false">Cancel</button>
+                            <button  class="p-2 btn btn-outline-purple btn-sm" @click="dismiss">Cancel</button>
                             <button class="p-2 btn btn-outline-success btn-sm" @click="update">Update</button>
                         </div>
                     </div>
@@ -47,8 +60,8 @@
 
                     <div v-if="authorise" class="float-right mt-2">
                         <div v-if="!editing">
-                            <button class="p-2 btn btn-outline-danger btn-sm" @click="destroy">Delete</button>
-                            <button class="p-2 btn btn-outline-success btn-sm" @click="editing = true">Edit reply</button>
+                            <button class="pl-3 pr-3 btn btn-outline-danger btn-sm" @click="destroy">Delete</button>
+                            <button class="pl-3 pr-3 btn btn-outline-success btn-sm" @click="editing = true">Edit reply</button>
                         </div>
                     </div>
                 </div>
@@ -59,13 +72,14 @@
 
 <script>
 export default {
-    props: ['reply'],
+    props: ['post', 'reply'],
 
     data() {
         return{
             editing: false,
             body: this.reply.body,
-            link: this.reply.link
+            link: this.reply.link,
+            validate: this.reply.validate,
         };
     },
 
@@ -80,14 +94,49 @@ export default {
 
         authorise() {
             return this.userID == this.reply.user_id ? true : false
+        },
+
+        creator() {
+            return this.userID == this.post.user_id ? true : false
+        },
+
+        isRightAnswer() {
+            return this.reply.validate == 0 ? '' : 'right-answer'
         }
     },
 
     methods: {
+        dismiss() {
+            editing = false
+            body = this.reply.body
+            link = this.reply.link
+            validate = this.reply.validate
+        },
+
+        validated() {
+            this.validate = 1
+
+            axios.patch('/replies/validate/' + this.reply.id, {
+                    user_id: this.post.user_id,
+                    validate: this.validate
+                })
+                .then( response => {
+                    flash('You validated this answer')
+
+                    this.$emit('answered')
+                })
+                .catch(err => {
+                    flash('Oops! Something went wrong', 'danger')
+
+                    console.log(err)
+                })
+        },
+
         update() {
             axios.patch('/replies/' + this.reply.id, {
                 body: this.body,
                 link: this.link,
+                validate: this.validate
             })
                 .then( response => {
                     flash('Reply successfully updated!')
@@ -113,6 +162,10 @@ export default {
 
                     console.log(err)
                 })
+        },
+
+        moment(time) {
+            return moment(time).fromNow()
         }
     }
 
@@ -120,5 +173,16 @@ export default {
 </script>
 
 <style>
+.right-answer {
+    border: solid 2px #16a085;
+}
+
+.right-answer .card-header {
+    background-color: rgba(22, 160, 133, 0.25)
+}
+
+.right-answer .card-body {
+    background-color: rgba(22, 160, 133, 0.125)
+}
 
 </style>

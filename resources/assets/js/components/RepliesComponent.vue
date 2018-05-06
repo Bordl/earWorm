@@ -7,6 +7,7 @@
 
         <div v-if="post" class="row justify-content-center">
             <div class="col-11 mb-3">
+                <button v-if="owner" @click="destroy" class="btn btn-outline-danger btn-block mb-3 p-2 f-reg">Delete my post</button>    
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -41,6 +42,19 @@
                     </div>
                 </div>             
             </div>
+
+            <!-- If validated -->
+            <div v-if="reply.validate == 1" v-for="reply in replies" :key="reply.id" class=" col-11 mb-3">
+                <div class="alert alert-success">
+                    <a :to="'#reply-' + reply.id">
+                        <p class="semiBold text-center f-reg green mb-0">
+                            This post has been answered <br>
+                            <em class="regular f-xs"><u>See answer</u></em>
+                        </p>
+                    </a>
+                </div>
+            </div>
+
             
             <add-reply-component @create="fetch" class="col-11"></add-reply-component>
 
@@ -48,7 +62,7 @@
                 <p class="text-center f-reg semiBold mb-2">All replies</p>
 
                 <div v-for="reply in replies" :key="reply.id" class="mb-3">
-                    <reply-component @destroyed="fetch" :reply="reply"></reply-component>
+                    <reply-component :post="post" :id="'reply-' + reply.id" @destroyed="fetch" @answered="fetch" :reply="reply"></reply-component>
                 </div>
             </div>
 
@@ -76,6 +90,12 @@ export default {
         };
     },
 
+    computed: {
+        owner() {
+            return App.user.id == this.post.user_id ? true : false
+        }
+    },
+
     created() {        
         this.fetch()
     },
@@ -89,8 +109,21 @@ export default {
                 })
         },
 
-        moment() {
-            return moment(this.post.created_at).fromNow()
+        destroy() {
+            axios.delete('/posts/' + this.$route.params.id)
+                .then(({data}) => {
+                    flash('Post succesfully deleted!')
+                    this.$router.push('home')
+                    }
+                )
+                .catch(err => {
+                    flash('Oops! Something went wrong', 'danger')
+                    console.log(err)
+                })
+        },
+
+        moment(time) {
+            return moment(time).fromNow()
         }
     }
 }

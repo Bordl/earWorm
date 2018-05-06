@@ -12224,7 +12224,14 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
     path: '/earworm',
     name: 'EarWormComponent',
     component: __WEBPACK_IMPORTED_MODULE_4__components_EarWormComponent_vue___default.a
-  }]
+  }],
+  scrollBehavior: function scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return { selector: to.hash };
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 }));
 
 /***/ }),
@@ -15665,15 +15672,15 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "semiBold" }, [
-                  _vm.post.answered == 0
+                  _vm.post.validate == 0
                     ? _c("p", { staticClass: "red mb-0" }, [
                         _c("em", [_vm._v("Not Answered")])
                       ])
                     : _c("p", { staticClass: "green mb-0" }, [
-                        _c("i", { staticClass: "fas fa-check" }),
                         _vm._v(
-                          "\n                             Answered!\n                        "
-                        )
+                          "\n                            Answered! \n                            "
+                        ),
+                        _c("i", { staticClass: "fas fa-check" })
                       ])
                 ])
               ]
@@ -15868,7 +15875,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15948,6 +15955,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15962,6 +15983,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             replies: false
         };
     },
+
+
+    computed: {
+        owner: function owner() {
+            return App.user.id == this.post.user_id ? true : false;
+        }
+    },
+
     created: function created() {
         this.fetch();
     },
@@ -15978,8 +16007,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.replies = data.replies;
             });
         },
+        destroy: function destroy() {
+            var _this2 = this;
+
+            axios.delete('/posts/' + this.$route.params.id).then(function (_ref2) {
+                var data = _ref2.data;
+
+                flash('Post succesfully deleted!');
+                _this2.$router.push('home');
+            }).catch(function (err) {
+                flash('Oops! Something went wrong', 'danger');
+                console.log(err);
+            });
+        },
         moment: function (_moment) {
-            function moment() {
+            function moment(_x) {
                 return _moment.apply(this, arguments);
             }
 
@@ -15988,8 +16030,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
 
             return moment;
-        }(function () {
-            return moment(this.post.created_at).fromNow();
+        }(function (time) {
+            return moment(time).fromNow();
         })
     }
 });
@@ -16080,7 +16122,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.right-answer {\n    border: solid 2px #16a085;\n}\n.right-answer .card-header {\n    background-color: rgba(22, 160, 133, 0.25)\n}\n.right-answer .card-body {\n    background-color: rgba(22, 160, 133, 0.125)\n}\n\n", ""]);
 
 // exports
 
@@ -16150,15 +16192,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['reply'],
+    props: ['post', 'reply'],
 
     data: function data() {
         return {
             editing: false,
             body: this.reply.body,
-            link: this.reply.link
+            link: this.reply.link,
+            validate: this.reply.validate
         };
     },
 
@@ -16172,20 +16228,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         authorise: function authorise() {
             return this.userID == this.reply.user_id ? true : false;
+        },
+        creator: function creator() {
+            return this.userID == this.post.user_id ? true : false;
+        },
+        isRightAnswer: function isRightAnswer() {
+            return this.reply.validate == 0 ? '' : 'right-answer';
         }
     },
 
     methods: {
-        update: function update() {
+        dismiss: function dismiss() {
+            editing = false;
+            body = this.reply.body;
+            link = this.reply.link;
+            validate = this.reply.validate;
+        },
+        validated: function validated() {
             var _this = this;
+
+            this.validate = 1;
+
+            axios.patch('/replies/validate/' + this.reply.id, {
+                user_id: this.post.user_id,
+                validate: this.validate
+            }).then(function (response) {
+                flash('You validated this answer');
+
+                _this.$emit('answered');
+            }).catch(function (err) {
+                flash('Oops! Something went wrong', 'danger');
+
+                console.log(err);
+            });
+        },
+        update: function update() {
+            var _this2 = this;
 
             axios.patch('/replies/' + this.reply.id, {
                 body: this.body,
-                link: this.link
+                link: this.link,
+                validate: this.validate
             }).then(function (response) {
                 flash('Reply successfully updated!');
 
-                _this.editing = false;
+                _this2.editing = false;
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -16193,18 +16280,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         destroy: function destroy() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.delete('/replies/' + this.reply.id).then(function (response) {
                 flash('Reply successfully deleted!');
 
-                _this2.$emit('destroyed');
+                _this3.$emit('destroyed');
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
                 console.log(err);
             });
-        }
+        },
+        moment: function (_moment) {
+            function moment(_x) {
+                return _moment.apply(this, arguments);
+            }
+
+            moment.toString = function () {
+                return _moment.toString();
+            };
+
+            return moment;
+        }(function (time) {
+            return moment(time).fromNow();
+        })
     }
 
 });
@@ -16218,8 +16318,61 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "card f-xs" }, [
-      _vm._m(0),
+    _c("div", { staticClass: "card f-xs", class: _vm.isRightAnswer }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("div", { staticClass: "level" }, [
+          _c("div", { staticClass: "flex" }, [
+            _c("p", { staticClass: "mb-0" }, [
+              _c("a", { attrs: { href: "/profiles/" + _vm.reply.user_id } }, [
+                _c("span", [
+                  _c("em", {
+                    domProps: { textContent: _vm._s(_vm.reply.owner.name) }
+                  })
+                ]),
+                _vm._v(" \n                        ")
+              ]),
+              _vm._v(" "),
+              _c("span", {
+                domProps: {
+                  textContent: _vm._s(_vm.moment(_vm.reply.created_at))
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.creator && _vm.reply.validate == 0
+            ? _c("div", { staticClass: "float-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-outline-success f-xxs",
+                    on: { click: _vm.validated }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-check" }),
+                    _vm._v(" Right answer\n                    ")
+                  ]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.reply.validate == 1,
+                  expression: "reply.validate == 1"
+                }
+              ],
+              staticClass: "green"
+            },
+            [_c("i", { staticClass: "fas fa-check" })]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _vm.editing
@@ -16277,11 +16430,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "p-2 btn btn-outline-purple btn-sm",
-                      on: {
-                        click: function($event) {
-                          _vm.editing = false
-                        }
-                      }
+                      on: { click: _vm.dismiss }
                     },
                     [_vm._v("Cancel")]
                   ),
@@ -16301,7 +16450,7 @@ var render = function() {
               _vm.link
                 ? _c("div", { staticClass: "mb-0" }, [
                     _c("div", { staticClass: "level" }, [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
                       _c(
                         "a",
@@ -16337,7 +16486,8 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "p-2 btn btn-outline-danger btn-sm",
+                              staticClass:
+                                "pl-3 pr-3 btn btn-outline-danger btn-sm",
                               on: { click: _vm.destroy }
                             },
                             [_vm._v("Delete")]
@@ -16346,7 +16496,8 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "p-2 btn btn-outline-success btn-sm",
+                              staticClass:
+                                "pl-3 pr-3 btn btn-outline-success btn-sm",
                               on: {
                                 click: function($event) {
                                   _vm.editing = true
@@ -16365,23 +16516,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("div", { staticClass: "level" }, [
-        _c("a", { staticClass: "flex", attrs: { href: "" } }, [
-          _c("p", { staticClass: "mb-0" }, [
-            _vm._v("Reply by "),
-            _c("span", [_vm._v("User ID to Name")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [_vm._v("{time} ago (moment)")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -16698,6 +16832,18 @@ var render = function() {
           { staticClass: "row justify-content-center" },
           [
             _c("div", { staticClass: "col-11 mb-3" }, [
+              _vm.owner
+                ? _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-outline-danger btn-block mb-3 p-2 f-reg",
+                      on: { click: _vm.destroy }
+                    },
+                    [_vm._v("Delete my post")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "row" }, [
@@ -16779,6 +16925,18 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
+            _vm._l(_vm.replies, function(reply) {
+              return reply.validate == 1
+                ? _c("div", { key: reply.id, staticClass: " col-11 mb-3" }, [
+                    _c("div", { staticClass: "alert alert-success" }, [
+                      _c("a", { attrs: { to: "#reply-" + reply.id } }, [
+                        _vm._m(0, true)
+                      ])
+                    ])
+                  ])
+                : _vm._e()
+            }),
+            _vm._v(" "),
             _c("add-reply-component", {
               staticClass: "col-11",
               on: { create: _vm.fetch }
@@ -16801,8 +16959,12 @@ var render = function() {
                         { key: reply.id, staticClass: "mb-3" },
                         [
                           _c("reply-component", {
-                            attrs: { reply: reply },
-                            on: { destroyed: _vm.fetch }
+                            attrs: {
+                              post: _vm.post,
+                              id: "reply-" + reply.id,
+                              reply: reply
+                            },
+                            on: { destroyed: _vm.fetch, answered: _vm.fetch }
                           })
                         ],
                         1
@@ -16817,12 +16979,26 @@ var render = function() {
                   ])
                 ])
           ],
-          1
+          2
         )
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "semiBold text-center f-reg green mb-0" }, [
+      _vm._v("\n                          This post has been answered "),
+      _c("br"),
+      _vm._v(" "),
+      _c("em", { staticClass: "regular f-xs" }, [
+        _c("u", [_vm._v("See answer")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -16918,7 +17094,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17097,6 +17273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         removeRecording: function removeRecording() {
             this.isRecording = false;
+            this.isPlaying = false;
             this.recordingData = [];
             this.dataUrl = '';
         },
@@ -17137,9 +17314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.post('/recordings', formData).then(function (response) {
                 flash('Your recording has been submitted!');
-                setTimeout(function () {
-                    return _this3.$router.go(-1);
-                }, 3000);
+                _this3.$router.push('home');
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
                 console.log(err);
