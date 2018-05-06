@@ -16929,7 +16929,7 @@ var render = function() {
               return reply.validate == 1
                 ? _c("div", { key: reply.id, staticClass: " col-11 mb-3" }, [
                     _c("div", { staticClass: "alert alert-success" }, [
-                      _c("a", { attrs: { to: "#reply-" + reply.id } }, [
+                      _c("a", { attrs: { href: "#reply-" + reply.id } }, [
                         _vm._m(0, true)
                       ])
                     ])

@@ -46,7 +46,7 @@
             <!-- If validated -->
             <div v-if="reply.validate == 1" v-for="reply in replies" :key="reply.id" class=" col-11 mb-3">
                 <div class="alert alert-success">
-                    <a :to="'#reply-' + reply.id">
+                    <a :href="'#reply-' + reply.id">
                         <p class="semiBold text-center f-reg green mb-0">
                             This post has been answered <br>
                             <em class="regular f-xs"><u>See answer</u></em>
