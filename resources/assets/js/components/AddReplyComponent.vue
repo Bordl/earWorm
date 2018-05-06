@@ -53,8 +53,6 @@
 
 		watch: {
 			url() {
-				console.log(this.url.length);
-				
 				return this.url.length === 0 && this.body.length === 0 ? this.toggled = false : this.toggled = true
 			},
 

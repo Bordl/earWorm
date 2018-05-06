@@ -11902,6 +11902,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 window.Vue = __webpack_require__(139);
 
+Vue.prototype.authorise = function (handler) {
+  var user = window.App.user;
+
+  return user ? handler(user) : flase;
+};
+
 window.events = new Vue();
 window.flash = function (message) {
   var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "success";
@@ -15907,7 +15913,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16028,7 +16034,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         owner: function owner() {
-            return App.user.id == this.post.user_id ? true : false;
+            var _this = this;
+
+            return this.authorise(function (user) {
+                return _this.post.user_id == user.id;
+            });
         }
     },
 
@@ -16039,27 +16049,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fetch: function fetch() {
-            var _this = this;
+            var _this2 = this;
 
             axios.get('/posts/' + this.$route.params.id).then(function (_ref) {
                 var data = _ref.data;
 
-                _this.post = data;
-                _this.replies = data.replies;
+                _this2.post = data;
+                _this2.replies = data.replies;
             });
         },
         remove: function remove(index) {
             this.replies.splice(index, 1);
+
+            flash('Reply succesffully deleted.');
         },
         destroy: function destroy() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.delete('/posts/' + this.$route.params.id).then(function (_ref2) {
                 var data = _ref2.data;
 
                 flash('Post succesfully deleted!');
 
-                _this2.$router.push('/home');
+                _this3.$router.push('/home');
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
                 console.log(err);
@@ -16279,8 +16291,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         userID: function userID() {
             return window.App.user.id;
         },
-        authorise: function authorise() {
-            return this.userID == this.reply.user_id ? true : false;
+        owner: function owner() {
+            var _this = this;
+
+            return this.authorise(function (user) {
+                return _this.reply.user_id == user.id;
+            });
         },
         creator: function creator() {
             return this.userID == this.post.user_id ? true : false;
@@ -16298,7 +16314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             validate = this.reply.validate;
         },
         validated: function validated() {
-            var _this = this;
+            var _this2 = this;
 
             this.validate = 1;
 
@@ -16309,7 +16325,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 flash('You have succesffully validated this answer');
 
-                _this.$emit('answered');
+                _this2.$emit('answered');
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -16317,7 +16333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         unValidated: function unValidated() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.validate = 0;
 
@@ -16328,7 +16344,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 flash('You succesfully invalidated this answer');
 
-                _this2.$emit('answered');
+                _this3.$emit('answered');
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -16336,7 +16352,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         update: function update() {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.patch('/replies/' + this.reply.id, {
                 body: this.body,
@@ -16345,7 +16361,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 flash('Reply successfully updated!');
 
-                _this3.editing = false;
+                _this4.editing = false;
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -16353,12 +16369,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         destroy: function destroy() {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.delete('/replies/' + this.reply.id).then(function (response) {
-                flash('Reply successfully deleted!');
-
-                _this4.$emit('destroyed', _this4.reply.id);
+                _this5.$emit('destroyed', _this5.reply.id);
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -16568,7 +16582,7 @@ var render = function() {
                 ? _c("div", { domProps: { textContent: _vm._s(_vm.body) } })
                 : _vm._e(),
               _vm._v(" "),
-              _vm.authorise
+              _vm.owner
                 ? _c("div", { staticClass: "float-right mt-2" }, [
                     !_vm.editing
                       ? _c("div", [
@@ -16732,8 +16746,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	watch: {
 		url: function url() {
-			console.log(this.url.length);
-
 			return this.url.length === 0 && this.body.length === 0 ? this.toggled = false : this.toggled = true;
 		},
 		body: function body() {

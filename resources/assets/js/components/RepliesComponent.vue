@@ -99,7 +99,7 @@ export default {
 
     computed: {
         owner() {
-            return App.user.id == this.post.user_id ? true : false
+            return this.authorise(user => this.post.user_id == user.id)
         },
     },
 
@@ -118,6 +118,8 @@ export default {
 
         remove(index) {
             this.replies.splice(index, 1)
+
+            flash('Reply succesffully deleted.')
         },
 
         destroy() {

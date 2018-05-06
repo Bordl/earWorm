@@ -6,6 +6,12 @@
 
 window.Vue = require('vue');
 
+Vue.prototype.authorise = handler => {
+    let user = window.App.user
+
+    return user ? handler(user) : flase
+}
+
 window.events = new Vue();
 window.flash = function (message, level = "success") {
 	window.events.$emit('flash', { message, level });

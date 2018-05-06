@@ -66,7 +66,7 @@
 
                     <div v-if="body" v-text="body"></div>
 
-                    <div v-if="authorise" class="float-right mt-2">
+                    <div v-if="owner" class="float-right mt-2">
                         <div v-if="!editing">
                             <button class="pl-3 pr-3 btn btn-outline-danger btn-sm" @click="destroy">Delete</button>
                             <button class="pl-3 pr-3 btn btn-outline-success btn-sm" @click="editing = true">Edit reply</button>
@@ -100,8 +100,8 @@ export default {
             return window.App.user.id
         },
 
-        authorise() {
-            return this.userID == this.reply.user_id ? true : false
+        owner() {
+            return this.authorise(user => this.reply.user_id == user.id)
         },
 
         creator() {
@@ -182,8 +182,6 @@ export default {
         destroy() {
             axios.delete('/replies/' + this.reply.id)
                 .then( response => {
-                    flash('Reply successfully deleted!')
-
                     this.$emit('destroyed', this.reply.id)
                 })
                 .catch(err => {
