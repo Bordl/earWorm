@@ -19,7 +19,15 @@
                     </div>
 
                     <div v-show="reply.validate == 1" class="green">
-                        <i class="fas fa-check"></i>
+                        <div v-if="creator">
+                            <button class="btn btn-sm btn-outline-danger f-xxs" @click="unValidated">
+                            <i class="fas fa-times"></i> Wrong answer
+                        </button>
+                        </div>
+
+                        <div v-else>
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,10 +126,31 @@ export default {
 
             axios.patch('/replies/validate/' + this.reply.id, {
                     user_id: this.post.user_id,
-                    validate: this.validate
+                    validate: this.validate,
+                    answered: 1
                 })
                 .then( response => {
-                    flash('You validated this answer')
+                    flash('You have succesffully validated this answer')
+
+                    this.$emit('answered')
+                })
+                .catch(err => {
+                    flash('Oops! Something went wrong', 'danger')
+
+                    console.log(err)
+                })
+        },
+
+        unValidated() {
+            this.validate = 0
+
+            axios.patch('/replies/validate/' + this.reply.id, {
+                    user_id: this.post.user_id,
+                    validate: this.validate,
+                    answered: 0
+                })
+                .then( response => {
+                    flash('You succesfully invalidated this answer')
 
                     this.$emit('answered')
                 })

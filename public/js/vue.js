@@ -16205,6 +16205,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['post', 'reply'],
@@ -16251,9 +16259,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.patch('/replies/validate/' + this.reply.id, {
                 user_id: this.post.user_id,
-                validate: this.validate
+                validate: this.validate,
+                answered: 1
             }).then(function (response) {
-                flash('You validated this answer');
+                flash('You have succesffully validated this answer');
 
                 _this.$emit('answered');
             }).catch(function (err) {
@@ -16262,8 +16271,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(err);
             });
         },
-        update: function update() {
+        unValidated: function unValidated() {
             var _this2 = this;
+
+            this.validate = 0;
+
+            axios.patch('/replies/validate/' + this.reply.id, {
+                user_id: this.post.user_id,
+                validate: this.validate,
+                answered: 0
+            }).then(function (response) {
+                flash('You succesfully invalidated this answer');
+
+                _this2.$emit('answered');
+            }).catch(function (err) {
+                flash('Oops! Something went wrong', 'danger');
+
+                console.log(err);
+            });
+        },
+        update: function update() {
+            var _this3 = this;
 
             axios.patch('/replies/' + this.reply.id, {
                 body: this.body,
@@ -16272,7 +16300,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 flash('Reply successfully updated!');
 
-                _this2.editing = false;
+                _this3.editing = false;
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -16280,12 +16308,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         destroy: function destroy() {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.delete('/replies/' + this.reply.id).then(function (response) {
                 flash('Reply successfully deleted!');
 
-                _this3.$emit('destroyed');
+                _this4.$emit('destroyed');
             }).catch(function (err) {
                 flash('Oops! Something went wrong', 'danger');
 
@@ -16369,7 +16397,23 @@ var render = function() {
               ],
               staticClass: "green"
             },
-            [_c("i", { staticClass: "fas fa-check" })]
+            [
+              _vm.creator
+                ? _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-outline-danger f-xxs",
+                        on: { click: _vm.unValidated }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-times" }),
+                        _vm._v(" Wrong answer\n                    ")
+                      ]
+                    )
+                  ])
+                : _c("div", [_c("i", { staticClass: "fas fa-check" })])
+            ]
           )
         ])
       ]),
@@ -17892,7 +17936,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, 200);
 			setTimeout(function () {
 				return _this3.show = false;
-			}, 3000);
+			}, 300);
 		}
 	}
 

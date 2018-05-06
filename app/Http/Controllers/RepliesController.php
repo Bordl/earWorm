@@ -114,7 +114,7 @@ class RepliesController extends Controller
         ]);
 
         $reply->post->update([
-            'answered' => 1
+            'answered' => request('answered')
         ]);
 
     }
