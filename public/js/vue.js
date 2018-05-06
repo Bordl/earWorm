@@ -15672,7 +15672,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "semiBold" }, [
-                  _vm.post.validate == 0
+                  _vm.post.answered == 0
                     ? _c("p", { staticClass: "red mb-0" }, [
                         _c("em", [_vm._v("Not Answered")])
                       ])

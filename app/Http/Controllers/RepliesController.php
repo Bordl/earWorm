@@ -113,6 +113,10 @@ class RepliesController extends Controller
             'validate'      => request('validate'),
         ]);
 
+        $reply->post->update([
+            'answered' => 1
+        ]);
+
     }
 
     /**
