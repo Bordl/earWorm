@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-	use RecordActivities;
+	use Favoritable, RecordActivities;
 
 	protected $guarded = [];
 
 	protected $with = ['recording', 'replies', 'creator'];
+
+	protected $appends = ['isFavorited'];
 
 	protected static function boot()
 	{

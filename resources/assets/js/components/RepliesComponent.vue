@@ -11,7 +11,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <h5 class="col-12 text-center f-lg mb-3">What's this song?</h5>
+                            <div class="level col-12">
+                                <h5 class="f-md mb-0" :class="owner ? 'text-center full-width' : 'flex'">What's this song?</h5>
+                                <favorite-component v-show="!owner" :post="post"></favorite-component>
+                            </div>
+
+                            <hr class="col-10">
+
                             <div class="col-7">
                                 <p class="mb-0 semiBold">Post description:</p>
                                 <p v-if="post.description" class="f-xs m-0">
@@ -78,10 +84,11 @@
 <script>
 import PlayerComponent from './PlayerComponent'
 import ReplyComponent from './ReplyComponent'
+import FavoriteComponent from './FavoriteComponent'
 import AddReplyComponent from './AddReplyComponent'
 
 export default {
-    components: {PlayerComponent, ReplyComponent, AddReplyComponent},
+    components: {PlayerComponent, ReplyComponent, AddReplyComponent, FavoriteComponent},
 
     data() {
         return {
@@ -93,7 +100,7 @@ export default {
     computed: {
         owner() {
             return App.user.id == this.post.user_id ? true : false
-        }
+        },
     },
 
     created() {        

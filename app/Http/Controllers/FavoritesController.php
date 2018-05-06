@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Reply;
+use App\Post;
 use App\Favorite;
 use Illuminate\Http\Request;
 
@@ -38,9 +38,9 @@ class FavoritesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Reply $reply)
+    public function store(Post $post)
     {
-        return $reply->favorite();
+        return $post->favorite();
     }
 
     /**
@@ -83,8 +83,8 @@ class FavoritesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        return $post->unfavorite();
     }
 }

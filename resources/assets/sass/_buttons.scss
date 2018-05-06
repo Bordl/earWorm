@@ -1,11 +1,32 @@
 .btn {
-    border-radius: 999px
-  }
+    border-radius: 999px;
+
+    &:focus {
+        outline: 0;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+}
   
 .btn-outline-success {
     color: $green;
     border-color: $green;
     background-color: white;
+  
+    &:active, &:focus, &:hover {
+      background-color: $green !important;
+      border-color: $green !important;
+      color: white;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+    }
+}
+
+.btn-success {
+    color: white;
+    border-color: $green;
+    background-color: $green;
   
     &:active, &:focus, &:hover {
       background-color: $green !important;

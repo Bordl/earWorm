@@ -47,10 +47,12 @@ class PostsController extends Controller
         ]);
 
         // create new post
-        $postID = Post::create([
+        $post = Post::create([
             'user_id'   => request('user_id'),
             'description'   => request('description')
-        ])->id;
+        ])->favorite();
+
+        $postID = $post->id;
 
         return $postID;
     }

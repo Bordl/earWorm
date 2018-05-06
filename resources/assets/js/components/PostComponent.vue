@@ -4,14 +4,16 @@
             <div class="card-body">
                 <div class="level">
                     <div class="flex">
-                        <p class="mb-0 semiBold">By:
+                        <p class="mb-0">
                             <router-link :to="`/profiles/${post.user_id}`">
-                                <em><span class="light" v-text="post.creator.name"></span></em>
+                                <em><span class="light" v-text="post.creator.name"></span>:</em>
                             </router-link>
+                            <span class="f-xs regular"><em v-text="moment(post.created_at)"></em>...</span>
                         </p>
+
                     </div>
 
-                    <div class="f-xs"><em v-text="moment(post.created_at)"></em>...</div>
+                    <favorite-component v-show="!owner" :post="post"></favorite-component>
                 </div>
                 
                 <hr>
@@ -58,9 +60,10 @@
 
 <script>
 import PlayerComponent from './PlayerComponent'
+import FavoriteComponent from './FavoriteComponent'
 
 export default {
-    components: {PlayerComponent},
+    components: {PlayerComponent, FavoriteComponent},
 
     props: ['data'],
 
@@ -68,6 +71,12 @@ export default {
         return {
             post: this.data,
         }
+    },
+
+    computed: {
+        owner() {
+            return App.user.id == this.post.user_id ? true : false
+        },
     },
 
     methods: {

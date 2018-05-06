@@ -21,4 +21,7 @@ Route::patch('/replies/validate/{reply}', 'RepliesController@validated');
 Route::post('/recordings', 'RecordingsController@store');
 Route::get('/recordings/{recording}', 'RecordingsController@show');
 
-Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
+Route::post('/posts/{post}/favorites', 'FavoritesController@store');
+Route::delete('/posts/{post}/favorites', 'FavoritesController@destroy');
+
+// API
