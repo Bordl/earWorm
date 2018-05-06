@@ -1,6 +1,6 @@
 <template>
   <div class="margin-nav">
-        <div @click="$router.go(-1)" class="back">
+        <div @click="$router.push('/home')" class="back">
             <i class="fas fa-chevron-left"></i>
             &nbsp;Back
         </div>
@@ -113,7 +113,8 @@ export default {
             axios.delete('/posts/' + this.$route.params.id)
                 .then(({data}) => {
                     flash('Post succesfully deleted!')
-                    this.$router.push('home')
+
+                    this.$router.push('/home')
                     }
                 )
                 .catch(err => {

@@ -213,7 +213,8 @@ export default {
             axios.post('/recordings', formData )
                 .then(response => {
                     flash('Your recording has been submitted!')
-                    this.$router.push('home')
+
+                    setTimeout(() => this.$router.push('/home'), 3500)
                 })
                 .catch(err => {
                     flash('Oops! Something went wrong', 'danger')

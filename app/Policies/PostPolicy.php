@@ -42,7 +42,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $post-_user_id == $user->id;
+        return $post->user_id == $user->id;
     }
 
     /**

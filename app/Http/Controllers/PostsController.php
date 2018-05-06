@@ -97,7 +97,7 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->autorize('update', $post);
+        $this->authorize('update', $post);
         
         $post->delete();
 
