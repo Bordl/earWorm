@@ -67,7 +67,7 @@
                     <div v-if="body" v-text="body"></div>
 
                     <div v-if="owner" class="float-right mt-2">
-                        <div v-if="!editing">
+                        <div v-if="!editing && validate == 0">
                             <button class="pl-3 pr-3 btn btn-outline-danger btn-sm" @click="destroy">Delete</button>
                             <button class="pl-3 pr-3 btn btn-outline-success btn-sm" @click="editing = true">Edit reply</button>
                         </div>

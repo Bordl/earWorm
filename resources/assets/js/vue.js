@@ -16,8 +16,8 @@ window.events = new Vue();
 window.flash = function (message, level = "success") {
 	window.events.$emit('flash', { message, level });
 };
-window.reload = function (filter) {
-    window.events.$emit('reload', filter)
+window.reload = function (filter, title) {
+    window.events.$emit('reload', {filter, title})
 }
 
 import router from './router.js';

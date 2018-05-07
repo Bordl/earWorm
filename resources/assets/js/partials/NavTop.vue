@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div v-else class="col-3 pr-0 f-xs"></div>
-            <div class="col-6 text-center semiBold" v-text="title"></div>
+            <div class="col-6 text-center semiBold" v-text="pageName"></div>
             <div id="hamburger" class="col-3 pl-0 f-xs" @click="toggle">
                 <div :class="isActive ? 'hidden' : 'block'">
                     <i class="fas fa-bars float-right"></i>
@@ -58,16 +58,23 @@ export default {
     data() {
         return {
             isActive: false,
+            pageName: this.title
         };
     },
+
 
     computed: {
         menuClass() {
             return this.isActive ? "menu-active" : 'menu-toggled'
         },
+
         translateValue() {
             return this.isActive ? "0" : '100'
         },
+    },
+
+    created() {
+        window.events.$on('reload', payload => this.pageName = payload.title)
     },
 
     methods: {
@@ -75,7 +82,7 @@ export default {
             this.isActive = ! this.isActive
         
             document.getElementById('menu').style.transform = "translateX(" + this.translateValue + "vw)"
-        }
+        },
     }
 
 

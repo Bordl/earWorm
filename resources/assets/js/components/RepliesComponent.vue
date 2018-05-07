@@ -1,10 +1,8 @@
 <template>
-  <div class="margin-nav">
-        <div @click="$router.push('/home')" class="back">
-            <i class="fas fa-chevron-left"></i>
-            &nbsp;Back
-        </div>
+<div>
+    <nav-top title="What's this song"></nav-top>
 
+    <div class="margin-nav">
         <div v-if="post" class="row justify-content-center">
             <div class="col-11 mb-3">
                 <button v-if="owner" @click="destroy" class="btn btn-outline-danger btn-block mb-3 p-2 f-reg">Delete my post</button>    
@@ -12,7 +10,15 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="level col-12">
-                                <h5 class="f-md mb-0" :class="owner ? 'text-center full-width' : 'flex'">What's this song?</h5>
+                                <div class="flex">
+                                    <p class="mb-0 light">
+                                        <router-link :to="`/profiles/${post.user_id}`">
+                                            <em><span v-text="post.creator.name"></span>:</em>
+                                        </router-link>
+                                        <span class="f-xs regular"><em v-text="moment(post.created_at)"></em>...</span>
+                                    </p>
+                                </div>
+
                                 <favorite-component v-show="!owner" :post="post"></favorite-component>
                             </div>
 
@@ -30,20 +36,6 @@
                             <div class="col-5">
                                 <player-component :path="post.recording.path" :postID="post.id"></player-component>
                             </div>
-                        </div>
-
-                        <hr> 
-
-                        <div class="level mt-3">
-                            <div class="flex">
-                                <p class="mb-0 semiBold">By:
-                                    <router-link :to="`/profiles/${post.user_id}`">
-                                        <em><span class="light" v-text="post.creator.name"></span></em>
-                                    </router-link>
-                                </p>
-                            </div>
-
-                            <div class="f-xs"><em v-text="moment(post.created_at)"></em>...</div>
                         </div>
                     </div>
                 </div>             
@@ -79,6 +71,9 @@
 
 
   </div>
+
+  <nav-bottom :home="false"></nav-bottom>
+</div>
 </template>
 
 <script>
@@ -86,9 +81,11 @@ import PlayerComponent from './PlayerComponent'
 import ReplyComponent from './ReplyComponent'
 import FavoriteComponent from './FavoriteComponent'
 import AddReplyComponent from './AddReplyComponent'
+import NavTop from '../partials/NavTop'
+import NavBottom from '../partials/NavBottom'
 
 export default {
-    components: {PlayerComponent, ReplyComponent, AddReplyComponent, FavoriteComponent},
+    components: {PlayerComponent, ReplyComponent, AddReplyComponent, FavoriteComponent, NavTop, NavBottom},
 
     data() {
         return {

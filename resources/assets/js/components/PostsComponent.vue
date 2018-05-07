@@ -28,7 +28,7 @@ export default {
     created() {
         this.fetch()
 
-        window.events.$on('reload', payload => this.fetch(payload))
+        window.events.$on('reload', payload => this.fetch(payload.filter))
     },
 
     methods: {

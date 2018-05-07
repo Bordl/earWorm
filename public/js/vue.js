@@ -11914,8 +11914,8 @@ window.flash = function (message) {
 
   window.events.$emit('flash', { message: message, level: level });
 };
-window.reload = function (filter) {
-  window.events.$emit('reload', filter);
+window.reload = function (filter, title) {
+  window.events.$emit('reload', { filter: filter, title: title });
 };
 
 
@@ -14959,7 +14959,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15029,7 +15029,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { PostsComponent: __WEBPACK_IMPORTED_MODULE_0__components_PostsComponent___default.a, NavTop: __WEBPACK_IMPORTED_MODULE_1__partials_NavTop___default.a, NavBottom: __WEBPACK_IMPORTED_MODULE_2__partials_NavBottom___default.a }
+    components: { PostsComponent: __WEBPACK_IMPORTED_MODULE_0__components_PostsComponent___default.a, NavTop: __WEBPACK_IMPORTED_MODULE_1__partials_NavTop___default.a, NavBottom: __WEBPACK_IMPORTED_MODULE_2__partials_NavBottom___default.a },
+
+    data: function data() {
+        return {
+            title: 'Latest Posts'
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('reload', function (payload) {
+            return _this.title = payload.title;
+        });
+    }
 });
 
 /***/ }),
@@ -15163,7 +15176,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.fetch();
 
         window.events.$on('reload', function (payload) {
-            return _this.fetch(payload);
+            return _this.fetch(payload.filter);
         });
     },
 
@@ -15755,7 +15768,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("nav-top", { attrs: { home: true, title: "Latest Posts" } }),
+      _c("nav-top", { attrs: { home: true, title: _vm.title } }),
       _vm._v(" "),
       _c("posts-component", { staticClass: "margin-nav" }),
       _vm._v(" "),
@@ -15763,7 +15776,7 @@ var render = function() {
         _c("button", { staticClass: "btn btn-create f-xl" }, [_vm._v("+")])
       ]),
       _vm._v(" "),
-      _c("nav-bottom")
+      _c("nav-bottom", { attrs: { home: true } })
     ],
     1
   )
@@ -15864,7 +15877,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15883,6 +15896,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FavoriteComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__FavoriteComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddReplyComponent__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddReplyComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AddReplyComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_NavTop__ = __webpack_require__(233);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_NavTop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__partials_NavTop__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_NavBottom__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_NavBottom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__partials_NavBottom__);
 //
 //
 //
@@ -15961,11 +15978,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
+
+
 
 
 
@@ -15973,7 +15987,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { PlayerComponent: __WEBPACK_IMPORTED_MODULE_0__PlayerComponent___default.a, ReplyComponent: __WEBPACK_IMPORTED_MODULE_1__ReplyComponent___default.a, AddReplyComponent: __WEBPACK_IMPORTED_MODULE_3__AddReplyComponent___default.a, FavoriteComponent: __WEBPACK_IMPORTED_MODULE_2__FavoriteComponent___default.a },
+    components: { PlayerComponent: __WEBPACK_IMPORTED_MODULE_0__PlayerComponent___default.a, ReplyComponent: __WEBPACK_IMPORTED_MODULE_1__ReplyComponent___default.a, AddReplyComponent: __WEBPACK_IMPORTED_MODULE_3__AddReplyComponent___default.a, FavoriteComponent: __WEBPACK_IMPORTED_MODULE_2__FavoriteComponent___default.a, NavTop: __WEBPACK_IMPORTED_MODULE_4__partials_NavTop___default.a, NavBottom: __WEBPACK_IMPORTED_MODULE_5__partials_NavBottom___default.a },
 
     data: function data() {
         return {
@@ -16539,7 +16553,7 @@ var render = function() {
               _vm._v(" "),
               _vm.owner
                 ? _c("div", { staticClass: "float-right mt-2" }, [
-                    !_vm.editing
+                    !_vm.editing && _vm.validate == 0
                       ? _c("div", [
                           _c(
                             "button",
@@ -16867,211 +16881,203 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "margin-nav" }, [
-    _c(
-      "div",
-      {
-        staticClass: "back",
-        on: {
-          click: function($event) {
-            _vm.$router.push("/home")
-          }
-        }
-      },
-      [
-        _c("i", { staticClass: "fas fa-chevron-left" }),
-        _vm._v("\n           Back\n      ")
-      ]
-    ),
-    _vm._v(" "),
-    _vm.post
-      ? _c(
-          "div",
-          { staticClass: "row justify-content-center" },
-          [
-            _c("div", { staticClass: "col-11 mb-3" }, [
-              _vm.owner
-                ? _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-outline-danger btn-block mb-3 p-2 f-reg",
-                      on: { click: _vm.destroy }
-                    },
-                    [_vm._v("Delete my post")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "level col-12" },
-                      [
+  return _c(
+    "div",
+    [
+      _c("nav-top", { attrs: { title: "What's this song" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "margin-nav" }, [
+        _vm.post
+          ? _c(
+              "div",
+              { staticClass: "row justify-content-center" },
+              [
+                _c("div", { staticClass: "col-11 mb-3" }, [
+                  _vm.owner
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-outline-danger btn-block mb-3 p-2 f-reg",
+                          on: { click: _vm.destroy }
+                        },
+                        [_vm._v("Delete my post")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("div", { staticClass: "row" }, [
                         _c(
-                          "h5",
-                          {
-                            staticClass: "f-md mb-0",
-                            class: _vm.owner ? "text-center full-width" : "flex"
-                          },
-                          [_vm._v("What's this song?")]
+                          "div",
+                          { staticClass: "level col-12" },
+                          [
+                            _c("div", { staticClass: "flex" }, [
+                              _c(
+                                "p",
+                                { staticClass: "mb-0 light" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      attrs: {
+                                        to: "/profiles/" + _vm.post.user_id
+                                      }
+                                    },
+                                    [
+                                      _c("em", [
+                                        _c("span", {
+                                          domProps: {
+                                            textContent: _vm._s(
+                                              _vm.post.creator.name
+                                            )
+                                          }
+                                        }),
+                                        _vm._v(":")
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "f-xs regular" }, [
+                                    _c("em", {
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          _vm.moment(_vm.post.created_at)
+                                        )
+                                      }
+                                    }),
+                                    _vm._v("...")
+                                  ])
+                                ],
+                                1
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("favorite-component", {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.owner,
+                                  expression: "!owner"
+                                }
+                              ],
+                              attrs: { post: _vm.post }
+                            })
+                          ],
+                          1
                         ),
                         _vm._v(" "),
-                        _c("favorite-component", {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: !_vm.owner,
-                              expression: "!owner"
-                            }
-                          ],
-                          attrs: { post: _vm.post }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("hr", { staticClass: "col-10" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-7" }, [
-                      _c("p", { staticClass: "mb-0 semiBold" }, [
-                        _vm._v("Post description:")
-                      ]),
-                      _vm._v(" "),
-                      _vm.post.description
-                        ? _c("p", { staticClass: "f-xs m-0" }, [
-                            _vm._v(
-                              "\n                                  " +
-                                _vm._s(_vm.post.description) +
-                                "\n                              "
-                            )
-                          ])
-                        : _c("p", { staticClass: "f-xs m-0" }, [
-                            _vm._v("This post has no description.")
-                          ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-5" },
-                      [
-                        _c("player-component", {
-                          attrs: {
-                            path: _vm.post.recording.path,
-                            postID: _vm.post.id
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "level mt-3" }, [
-                    _c("div", { staticClass: "flex" }, [
-                      _c(
-                        "p",
-                        { staticClass: "mb-0 semiBold" },
-                        [
-                          _vm._v("By:\n                                  "),
-                          _c(
-                            "router-link",
-                            { attrs: { to: "/profiles/" + _vm.post.user_id } },
-                            [
-                              _c("em", [
-                                _c("span", {
-                                  staticClass: "light",
-                                  domProps: {
-                                    textContent: _vm._s(_vm.post.creator.name)
-                                  }
-                                })
+                        _c("hr", { staticClass: "col-10" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-7" }, [
+                          _c("p", { staticClass: "mb-0 semiBold" }, [
+                            _vm._v("Post description:")
+                          ]),
+                          _vm._v(" "),
+                          _vm.post.description
+                            ? _c("p", { staticClass: "f-xs m-0" }, [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(_vm.post.description) +
+                                    "\n                                "
+                                )
                               ])
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "f-xs" }, [
-                      _c("em", {
-                        domProps: {
-                          textContent: _vm._s(_vm.moment(_vm.post.created_at))
-                        }
-                      }),
-                      _vm._v("...")
-                    ])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _vm._l(_vm.replies, function(reply) {
-              return reply.validate == 1
-                ? _c("div", { key: reply.id, staticClass: " col-11 mb-3" }, [
-                    _c("div", { staticClass: "alert alert-success" }, [
-                      _c("a", { attrs: { href: "#reply-" + reply.id } }, [
-                        _vm._m(0, true)
+                            : _c("p", { staticClass: "f-xs m-0" }, [
+                                _vm._v("This post has no description.")
+                              ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-5" },
+                          [
+                            _c("player-component", {
+                              attrs: {
+                                path: _vm.post.recording.path,
+                                postID: _vm.post.id
+                              }
+                            })
+                          ],
+                          1
+                        )
                       ])
                     ])
                   ])
-                : _vm._e()
-            }),
-            _vm._v(" "),
-            _c("add-reply-component", {
-              staticClass: "col-11",
-              on: { create: _vm.add }
-            }),
-            _vm._v(" "),
-            _vm.replies.length > 0
-              ? _c(
-                  "div",
-                  { staticClass: "col-11" },
-                  [
-                    _c(
-                      "p",
-                      { staticClass: "text-center f-reg semiBold mb-2" },
-                      [_vm._v("All replies")]
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.replies, function(reply, index) {
-                      return _c(
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.replies, function(reply) {
+                  return reply.validate == 1
+                    ? _c(
                         "div",
-                        { key: reply.id, staticClass: "mb-3" },
+                        { key: reply.id, staticClass: " col-11 mb-3" },
                         [
-                          _c("reply-component", {
-                            attrs: {
-                              post: _vm.post,
-                              id: "reply-" + reply.id,
-                              reply: reply
-                            },
-                            on: {
-                              destroyed: function($event) {
-                                _vm.remove(index)
-                              },
-                              answered: _vm.add
-                            }
-                          })
-                        ],
-                        1
+                          _c("div", { staticClass: "alert alert-success" }, [
+                            _c("a", { attrs: { href: "#reply-" + reply.id } }, [
+                              _vm._m(0, true)
+                            ])
+                          ])
+                        ]
                       )
-                    })
-                  ],
-                  2
-                )
-              : _c("div", [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v("Be the first one to answer this post!")
-                  ])
-                ])
-          ],
-          2
-        )
-      : _vm._e()
-  ])
+                    : _vm._e()
+                }),
+                _vm._v(" "),
+                _c("add-reply-component", {
+                  staticClass: "col-11",
+                  on: { create: _vm.add }
+                }),
+                _vm._v(" "),
+                _vm.replies.length > 0
+                  ? _c(
+                      "div",
+                      { staticClass: "col-11" },
+                      [
+                        _c(
+                          "p",
+                          { staticClass: "text-center f-reg semiBold mb-2" },
+                          [_vm._v("All replies")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.replies, function(reply, index) {
+                          return _c(
+                            "div",
+                            { key: reply.id, staticClass: "mb-3" },
+                            [
+                              _c("reply-component", {
+                                attrs: {
+                                  post: _vm.post,
+                                  id: "reply-" + reply.id,
+                                  reply: reply
+                                },
+                                on: {
+                                  destroyed: function($event) {
+                                    _vm.remove(index)
+                                  },
+                                  answered: _vm.add
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  : _c("div", [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v("Be the first one to answer this post!")
+                      ])
+                    ])
+              ],
+              2
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("nav-bottom", { attrs: { home: false } })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -17079,7 +17085,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "semiBold text-center f-reg green mb-0" }, [
-      _vm._v("\n                          This post has been answered "),
+      _vm._v("\n                            This post has been answered "),
       _c("br"),
       _vm._v(" "),
       _c("em", { staticClass: "regular f-xs" }, [
@@ -17183,7 +17189,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17196,6 +17202,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_NavTop__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_NavTop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_NavTop__);
+//
+//
 //
 //
 //
@@ -17680,7 +17688,9 @@ var render = function() {
             ])
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("nav-bottom", { attrs: { home: false } })
     ],
     1
   )
@@ -18393,7 +18403,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            isActive: false
+            isActive: false,
+            pageName: this.title
         };
     },
 
@@ -18406,6 +18417,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.isActive ? "0" : '100';
         }
     },
+
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('reload', function (payload) {
+            return _this.pageName = payload.title;
+        });
+    },
+
 
     methods: {
         toggle: function toggle() {
@@ -18451,7 +18471,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", {
           staticClass: "col-6 text-center semiBold",
-          domProps: { textContent: _vm._s(_vm.title) }
+          domProps: { textContent: _vm._s(_vm.pageName) }
         }),
         _vm._v(" "),
         _c(
@@ -18651,17 +18671,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['home'],
+
     computed: {
         name: function name() {
             return App.user.name;
+        },
+        isHome: function isHome() {
+            return this.home == false ? false : true;
         }
     },
 
     methods: {
-        emit: function emit(filter) {
-            reload(filter);
+        emit: function emit(filter, title) {
+            reload(filter, title);
+        },
+        linkTo: function linkTo(filter, title) {
+            this.$router.push('/home');
+            setTimeout(function () {
+                return reload(filter, title);
+            }, 10);
         }
     }
 
@@ -18679,59 +18727,113 @@ var render = function() {
     "div",
     { staticClass: "shadow-bottom pt-3", attrs: { id: "navbar-bottom" } },
     [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c(
-          "div",
-          {
-            staticClass: "col-3 border-right text-center purple f-reg",
-            on: {
-              click: function($event) {
-                _vm.emit("/home")
-              }
-            }
-          },
-          [_c("i", { staticClass: "fas fa-home" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "col-3 border-right text-center purple f-reg",
-            on: {
-              click: function($event) {
-                _vm.emit("/home?popular=1")
-              }
-            }
-          },
-          [_c("i", { staticClass: "fas fa-fire" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "col-3 border-right text-center purple f-reg",
-            on: {
-              click: function($event) {
-                _vm.emit("/home?unanswered=1")
-              }
-            }
-          },
-          [_c("i", { staticClass: "fas fa-comment-slash" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "col-3 text-center purple f-reg",
-            on: {
-              click: function($event) {
-                _vm.emit("/home?by=" + _vm.name)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fas fa-user" })]
-        )
-      ])
+      _vm.isHome
+        ? _c("div", { staticClass: "row justify-content-center" }, [
+            _c(
+              "div",
+              {
+                staticClass: "col-3 border-right text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.emit("/home", "Latest Posts")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-home" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-3 border-right text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.emit("/home?popular=1", "Popular Posts")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-fire" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-3 border-right text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.emit("/home?unanswered=1", "Unanswered Posts")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-comment-slash" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-3 text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.emit("/home?by=" + _vm.name, "Posts by me")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-user" })]
+            )
+          ])
+        : _c("div", { staticClass: "row justify-content-center" }, [
+            _c(
+              "div",
+              {
+                staticClass: "col-3 border-right text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.linkTo("/home", "Latest Posts")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-home" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-3 border-right text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.linkTo("/home?popular=1", "Popular Posts")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-fire" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-3 border-right text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.linkTo("/home?unanswered=1", "Unanswered Posts")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-comment-slash" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-3 text-center purple f-reg",
+                on: {
+                  click: function($event) {
+                    _vm.linkTo("/home?by=" + _vm.name, "Posts by me")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-user" })]
+            )
+          ])
     ]
   )
 }

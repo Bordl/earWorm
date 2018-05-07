@@ -87,6 +87,8 @@
             
         </div>
     </div>
+
+    <nav-bottom :home="false"></nav-bottom>
   </div>
 </template>
 
