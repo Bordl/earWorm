@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-top title="New earWorm"></nav-top>
+    <nav-top :home="false" title="New earWorm"></nav-top>
 
     <div class="full-height flex-center">
         <div class="flex-wrapper col-11">

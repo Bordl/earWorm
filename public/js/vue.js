@@ -15755,7 +15755,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("nav-top", { attrs: { title: "Latest Posts" } }),
+      _c("nav-top", { attrs: { home: true, title: "Latest Posts" } }),
       _vm._v(" "),
       _c("posts-component", { staticClass: "margin-nav" }),
       _vm._v(" "),
@@ -17430,7 +17430,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("nav-top", { attrs: { title: "New earWorm" } }),
+      _c("nav-top", { attrs: { home: false, title: "New earWorm" } }),
       _vm._v(" "),
       _c("div", { staticClass: "full-height flex-center" }, [
         _c("div", { staticClass: "flex-wrapper col-11" }, [
@@ -18384,9 +18384,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['title'],
+    props: ['title', 'home'],
 
     data: function data() {
         return {
@@ -18427,21 +18430,24 @@ var render = function() {
     { staticClass: "shadow-top p-3", attrs: { id: "navbar-top" } },
     [
       _c("div", { staticClass: "row flex-center" }, [
-        _c(
-          "div",
-          {
-            staticClass: "col-3 pr-0 f-xs",
-            on: {
-              click: function($event) {
-                _vm.$router.push("/home")
-              }
-            }
-          },
-          [
-            _c("i", { staticClass: "fas fa-chevron-left" }),
-            _vm._v("\n               Back\n          ")
-          ]
-        ),
+        !_vm.home
+          ? _c("div", { staticClass: "col-3 pr-0 f-xs" }, [
+              _c(
+                "div",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.$router.push("/home")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-chevron-left" }),
+                  _vm._v("\n                   Back\n              ")
+                ]
+              )
+            ])
+          : _c("div", { staticClass: "col-3 pr-0 f-xs" }),
         _vm._v(" "),
         _c("div", {
           staticClass: "col-6 text-center semiBold",

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-top title="Latest Posts"></nav-top>
+        <nav-top :home="true" title="Latest Posts"></nav-top>
 
         <posts-component class="margin-nav"></posts-component>
 

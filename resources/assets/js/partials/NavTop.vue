@@ -1,10 +1,13 @@
 <template>
     <div id="navbar-top" class="shadow-top p-3">
         <div class="row flex-center">
-            <div @click="$router.push('/home')" class="col-3 pr-0 f-xs">
-                <i class="fas fa-chevron-left"></i>
-                &nbsp;Back
+            <div v-if="!home" class="col-3 pr-0 f-xs">
+                <div @click="$router.push('/home')">
+                    <i class="fas fa-chevron-left"></i>
+                    &nbsp;Back
+                </div>
             </div>
+            <div v-else class="col-3 pr-0 f-xs"></div>
             <div class="col-6 text-center semiBold" v-text="title"></div>
             <div id="hamburger" class="col-3 pl-0 f-xs" @click="toggle">
                 <div :class="isActive ? 'hidden' : 'block'">
@@ -50,7 +53,7 @@
 
 <script>
 export default {
-    props: ['title'],
+    props: ['title', 'home'],
 
     data() {
         return {
