@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div @click="$router.go(-1)" class="back">
-        <i class="fas fa-chevron-left"></i>
-        &nbsp;Back
-    </div>
+    <nav-top title="New earWorm"></nav-top>
 
     <div class="full-height flex-center">
         <div class="flex-wrapper col-11">
@@ -94,7 +91,11 @@
 </template>
 
 <script>
+import NavTop from '../partials/NavTop'
+
 export default {
+    components: {NavTop},
+
     data() {
         return {
             isRecording: false,

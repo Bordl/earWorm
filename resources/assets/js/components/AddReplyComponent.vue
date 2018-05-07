@@ -68,16 +68,19 @@
                     link: this.url
                 })
 				.catch(error => {
-					flash(error.response.data, 'danger');
+					flash('Oops! Something went wrong.', 'danger');
+
+					console.log(error);
+					
 				})
-					.then(({data}) => {
-                        this.body = '';
-                        this.url = ''
+				.then(({data}) => {					
+					this.body = '';
+					this.url = ''
 
-						flash('Your reply has been posted');
+					flash('Your reply has been posted');
 
-						this.$emit('create')
-					})
+					this.$emit('create', data)
+				})
 			}
 
 		}

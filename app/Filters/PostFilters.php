@@ -6,7 +6,7 @@ use App\User;
 
 class PostFilters extends Filters
 {
-    protected $filters = ['by', 'popular'];
+    protected $filters = ['by', 'popular', 'unanswered'];
     
     public function by($username)
     {
@@ -20,5 +20,12 @@ class PostFilters extends Filters
         $this->builder->getQuery()->orders = [];
         
         return $this->builder->orderBy('replies_count', 'desc');
+    }
+
+    public function unanswered()
+    {
+        $this->builder->getQuery()->orders = [];
+
+        return $this->builder->where('replies_count', 0);
     }
 }

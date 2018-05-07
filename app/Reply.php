@@ -11,6 +11,19 @@ class Reply extends Model
     protected $guarded = [];
 
     protected $with =['owner', 'favorites'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($reply){
+            $reply->post->increment('replies_count');
+        });
+
+        static::deleted(function($reply){
+            $reply->post->decrement('replies_count');
+        });
+    }
     
     public function post()
     {

@@ -11914,6 +11914,9 @@ window.flash = function (message) {
 
   window.events.$emit('flash', { message: message, level: level });
 };
+window.reload = function (filter) {
+  window.events.$emit('reload', filter);
+};
 
 
 Vue.config.devtools = true;
@@ -14956,7 +14959,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15002,6 +15005,10 @@ module.exports = function listToStyles (parentId, list) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PostsComponent__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PostsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_PostsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_NavTop__ = __webpack_require__(233);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_NavTop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_NavTop__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_NavBottom__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_NavBottom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_NavBottom__);
 //
 //
 //
@@ -15016,22 +15023,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { PostsComponent: __WEBPACK_IMPORTED_MODULE_0__components_PostsComponent___default.a }
+    components: { PostsComponent: __WEBPACK_IMPORTED_MODULE_0__components_PostsComponent___default.a, NavTop: __WEBPACK_IMPORTED_MODULE_1__partials_NavTop___default.a, NavBottom: __WEBPACK_IMPORTED_MODULE_2__partials_NavBottom___default.a }
 });
 
 /***/ }),
@@ -15120,7 +15118,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15197,27 +15195,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
+        var _this = this;
+
         this.fetch();
+
+        window.events.$on('reload', function (payload) {
+            return _this.fetch(payload);
+        });
     },
 
 
     methods: {
         fetch: function fetch() {
-            axios.get(this.url()).then(this.refresh);
-        },
-        url: function url() {
-            var query = location.href.match(/by=(.*)/);
+            var _this2 = this;
 
-            query !== null ? this.user = '?by=' + query[1] : this.user = '';
+            var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
-            return location.origin + '/posts' + this.user;
-        },
-        refresh: function refresh(_ref) {
-            var data = _ref.data;
+            axios.get('/posts' + this.filter(payload)).then(function (_ref) {
+                var data = _ref.data;
 
-            this.dataSet = data;
+                _this2.dataSet = data;
+            });
 
             window.scrollTo(0, 0);
+        },
+        filter: function filter(_filter) {
+            var match = _filter.match(/(\?|\&)([^=]+)\=([^\&]+)/);
+
+            return match == null ? '' : match[0];
         }
     }
 
@@ -15781,43 +15786,20 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", { staticClass: "text-center" }, [_vm._v("Latest Posts")]),
+      _c("nav-top", { attrs: { title: "Latest Posts" } }),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: "/earworm" } }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-outline-success btn-lg btn-block" },
-          [_vm._v("New earWorm")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("posts-component"),
+      _c("posts-component", { staticClass: "margin-nav" }),
       _vm._v(" "),
       _c("router-link", { attrs: { to: "/earworm" } }, [
         _c("button", { staticClass: "btn btn-create f-xl" }, [_vm._v("+")])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("nav-bottom")
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "/signout" } }, [
-      _c("button", { staticClass: "btn btn-signout f-lg p-0" }, [
-        _c("i", { staticClass: "fas fa-sign-out-alt" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -15913,7 +15895,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16051,12 +16033,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetch: function fetch() {
             var _this2 = this;
 
-            axios.get('/posts/' + this.$route.params.id).then(function (_ref) {
+            axios.get('/replies/' + this.$route.params.id).then(function (_ref) {
                 var data = _ref.data;
 
-                _this2.post = data;
+
+                _this2.post = data.post;
                 _this2.replies = data.replies;
             });
+        },
+        add: function add(reply) {
+            this.replies.unshift(reply);
         },
         remove: function remove(index) {
             this.replies.splice(index, 1);
@@ -16761,7 +16747,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				body: this.body,
 				link: this.url
 			}).catch(function (error) {
-				flash(error.response.data, 'danger');
+				flash('Oops! Something went wrong.', 'danger');
+
+				console.log(error);
 			}).then(function (_ref) {
 				var data = _ref.data;
 
@@ -16770,7 +16758,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 				flash('Your reply has been posted');
 
-				_this.$emit('create');
+				_this.$emit('create', data);
 			});
 		}
 	}
@@ -17066,7 +17054,7 @@ var render = function() {
             _vm._v(" "),
             _c("add-reply-component", {
               staticClass: "col-11",
-              on: { create: _vm.fetch }
+              on: { create: _vm.add }
             }),
             _vm._v(" "),
             _vm.replies.length > 0
@@ -17095,7 +17083,7 @@ var render = function() {
                               destroyed: function($event) {
                                 _vm.remove(index)
                               },
-                              answered: _vm.fetch
+                              answered: _vm.add
                             }
                           })
                         ],
@@ -17226,7 +17214,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17237,9 +17225,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_NavTop__ = __webpack_require__(233);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_NavTop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_NavTop__);
 //
 //
 //
@@ -17333,7 +17320,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: { NavTop: __WEBPACK_IMPORTED_MODULE_0__partials_NavTop___default.a },
+
     data: function data() {
         return {
             isRecording: false,
@@ -17467,271 +17458,263 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass: "back",
-        on: {
-          click: function($event) {
-            _vm.$router.go(-1)
-          }
-        }
-      },
-      [
-        _c("i", { staticClass: "fas fa-chevron-left" }),
-        _vm._v("\n       Back\n  ")
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "full-height flex-center" }, [
-      _c("div", { staticClass: "flex-wrapper col-11" }, [
-        _c("p", { staticClass: "text-center semiBold green f-lg" }, [
-          _vm._v("What is that song?")
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.recordingData.length == 0,
-                expression: "recordingData.length == 0"
-              }
-            ],
-            staticClass: "row justify-content-center mb-3 level"
-          },
-          [
-            _c("div", { staticClass: "col-4" }, [
-              _c(
-                "button",
+  return _c(
+    "div",
+    [
+      _c("nav-top", { attrs: { title: "New earWorm" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "full-height flex-center" }, [
+        _c("div", { staticClass: "flex-wrapper col-11" }, [
+          _c("p", { staticClass: "text-center semiBold green f-lg" }, [
+            _vm._v("What is that song?")
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
                 {
-                  staticClass: "btn btn-block btn-outline-danger",
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.recordingData.length == 0,
+                  expression: "recordingData.length == 0"
+                }
+              ],
+              staticClass: "row justify-content-center mb-3 level"
+            },
+            [
+              _c("div", { staticClass: "col-4" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-outline-danger",
+                    on: {
+                      click: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        return _vm.toggleRecording($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { class: _vm.startRecording }, [
+                      _c("i", { staticClass: "fas fa-microphone f-lg m-3" })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { class: _vm.stopRecording }, [
+                      _c("i", {
+                        staticClass: "fas fa-microphone-slash f-lg m-3"
+                      })
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-12 red semiBold mt-3" }, [
+                _c(
+                  "p",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isRecording,
+                        expression: "!isRecording"
+                      }
+                    ],
+                    staticClass: "f-reg mb-0 text-center"
+                  },
+                  [_vm._v("Start recording")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isRecording,
+                        expression: "isRecording"
+                      }
+                    ],
+                    staticClass: "f-reg mb-0 text-center"
+                  },
+                  [_vm._v("Stop recording")]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm.dataUrl.length > 0
+            ? _c("div", { staticClass: "row mb-3 level" }, [
+                _c("div", { staticClass: "col-6 border-right" }, [
+                  _c("div", { staticClass: "row justify-content-center" }, [
+                    _c("div", { staticClass: "col-8" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-block btn-outline-purple",
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              $event.preventDefault()
+                              return _vm.togglePlay($event)
+                            }
+                          }
+                        },
+                        [
+                          _c("div", { class: _vm.startPlayback }, [
+                            _c("i", { staticClass: "fas fa-play f-lg m-3" })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { class: _vm.pausePlayback }, [
+                            _c("i", { staticClass: "fas fa-pause f-lg m-3" })
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12 purple semiBold mt-3" }, [
+                      _c(
+                        "p",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: !_vm.isPlaying,
+                              expression: "!isPlaying"
+                            }
+                          ],
+                          staticClass: "f-reg mb-0 text-center"
+                        },
+                        [_vm._v("Play recording")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.isPlaying,
+                              expression: "isPlaying"
+                            }
+                          ],
+                          staticClass: "f-reg mb-0 text-center"
+                        },
+                        [_vm._v("Pause recording")]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-6" }, [
+                  _c("div", { staticClass: "row justify-content-center" }, [
+                    _c("div", { staticClass: "col-8" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-block btn-outline-warning",
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              $event.preventDefault()
+                              return _vm.removeRecording($event)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-redo-alt f-lg m-3" })]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("audio", {
+            attrs: { id: "audio", preload: "auto", src: _vm.dataUrl },
+            on: { ended: _vm.playAgain }
+          }),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "form",
+                {
                   on: {
-                    click: function($event) {
-                      $event.stopPropagation()
+                    submit: function($event) {
                       $event.preventDefault()
-                      return _vm.toggleRecording($event)
+                      return _vm.create($event)
                     }
                   }
                 },
                 [
-                  _c("div", { class: _vm.startRecording }, [
-                    _c("i", { staticClass: "fas fa-microphone f-lg m-3" })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { class: _vm.stopRecording }, [
-                    _c("i", { staticClass: "fas fa-microphone-slash f-lg m-3" })
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12 red semiBold mt-3" }, [
-              _c(
-                "p",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.isRecording,
-                      expression: "!isRecording"
-                    }
-                  ],
-                  staticClass: "f-reg mb-0 text-center"
-                },
-                [_vm._v("Start recording")]
-              ),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.isRecording,
-                      expression: "isRecording"
-                    }
-                  ],
-                  staticClass: "f-reg mb-0 text-center"
-                },
-                [_vm._v("Stop recording")]
-              )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _vm.dataUrl.length > 0
-          ? _c("div", { staticClass: "row mb-3 level" }, [
-              _c("div", { staticClass: "col-6 border-right" }, [
-                _c("div", { staticClass: "row justify-content-center" }, [
-                  _c("div", { staticClass: "col-8" }, [
+                  _c("div", { staticClass: "form-group" }, [
                     _c(
-                      "button",
+                      "label",
                       {
-                        staticClass: "btn btn-block btn-outline-purple",
-                        on: {
-                          click: function($event) {
-                            $event.stopPropagation()
-                            $event.preventDefault()
-                            return _vm.togglePlay($event)
-                          }
-                        }
+                        staticClass: "semiBold pl-3",
+                        attrs: { for: "description" }
                       },
-                      [
-                        _c("div", { class: _vm.startPlayback }, [
-                          _c("i", { staticClass: "fas fa-play f-lg m-3" })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { class: _vm.pausePlayback }, [
-                          _c("i", { staticClass: "fas fa-pause f-lg m-3" })
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-12 purple semiBold mt-3" }, [
-                    _c(
-                      "p",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.isPlaying,
-                            expression: "!isPlaying"
-                          }
-                        ],
-                        staticClass: "f-reg mb-0 text-center"
-                      },
-                      [_vm._v("Play recording")]
+                      [_vm._v("Provide more info (optional)")]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "p",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.isPlaying,
-                            expression: "isPlaying"
-                          }
-                        ],
-                        staticClass: "f-reg mb-0 text-center"
-                      },
-                      [_vm._v("Pause recording")]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-6" }, [
-                _c("div", { staticClass: "row justify-content-center" }, [
-                  _c("div", { staticClass: "col-8" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-block btn-outline-warning",
-                        on: {
-                          click: function($event) {
-                            $event.stopPropagation()
-                            $event.preventDefault()
-                            return _vm.removeRecording($event)
-                          }
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.description,
+                          expression: "description"
                         }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        id: "description",
+                        placeholder: "Mid 80s Pop/Rock tune...",
+                        rows: "3",
+                        maxlength: "150"
                       },
-                      [_c("i", { staticClass: "fas fa-redo-alt f-lg m-3" })]
-                    )
+                      domProps: { value: _vm.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.description = $event.target.value
+                        }
+                      }
+                    })
                   ]),
                   _vm._v(" "),
-                  _vm._m(0)
-                ])
-              ])
+                  _vm.dataUrl.length > 0
+                    ? _c(
+                        "button",
+                        { staticClass: "btn btn-block btn-outline-success" },
+                        [
+                          _c("i", { staticClass: "fas fa-check" }),
+                          _vm._v(" Submit recording\n                      ")
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              )
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("audio", {
-          attrs: { id: "audio", preload: "auto", src: _vm.dataUrl },
-          on: { ended: _vm.playAgain }
-        }),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.create($event)
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "semiBold pl-3",
-                      attrs: { for: "description" }
-                    },
-                    [_vm._v("Provide more info (optional)")]
-                  ),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.description,
-                        expression: "description"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      id: "description",
-                      placeholder: "Mid 80s Pop/Rock tune...",
-                      rows: "3",
-                      maxlength: "150"
-                    },
-                    domProps: { value: _vm.description },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.description = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _vm.dataUrl.length > 0
-                  ? _c(
-                      "button",
-                      { staticClass: "btn btn-block btn-outline-success" },
-                      [
-                        _c("i", { staticClass: "fas fa-check" }),
-                        _vm._v(" Submit recording\n                      ")
-                      ]
-                    )
-                  : _vm._e()
-              ]
-            )
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -18072,7 +18055,7 @@ var render = function() {
   return _c("div", { attrs: { id: "app" } }, [
     _c(
       "div",
-      { staticClass: "container mt-3" },
+      { staticClass: "container" },
       [
         _c("router-view"),
         _vm._v(" "),
@@ -18282,6 +18265,508 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-3fde291a", module.exports)
+  }
+}
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(234)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(236)
+/* template */
+var __vue_template__ = __webpack_require__(237)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/partials/NavTop.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4fb5cd2d", Component.options)
+  } else {
+    hotAPI.reload("data-v-4fb5cd2d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(235);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("181f514d", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fb5cd2d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NavTop.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fb5cd2d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NavTop.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#navbar-top {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 60px;\n    background-color: white;\n    z-index: 2001;\n}\n#menu {\n    min-height: 100vh;\n    position: fixed;\n    top: 0;\n    z-index: 2;\n    -webkit-transition: -webkit-transform 0.3s;\n    transition: -webkit-transform 0.3s;\n    transition: transform 0.3s;\n    transition: transform 0.3s, -webkit-transform 0.3s;\n    -webkit-transform: translateX(100vw);\n            transform: translateX(100vw);\n    background-color: white;\n    z-index: 2002;\n    opacity: .95;\n    width: 100vw;\n    margin-left: -16px;\n}\n#menu ul {\n    list-style-type: none\n}\n#hamburger {\n    z-index: 3003;\n}\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 236 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['title'],
+
+    data: function data() {
+        return {
+            isActive: false
+        };
+    },
+
+
+    computed: {
+        menuClass: function menuClass() {
+            return this.isActive ? "menu-active" : 'menu-toggled';
+        },
+        translateValue: function translateValue() {
+            return this.isActive ? "0" : '100';
+        }
+    },
+
+    methods: {
+        toggle: function toggle() {
+            this.isActive = !this.isActive;
+
+            document.getElementById('menu').style.transform = "translateX(" + this.translateValue + "vw)";
+        }
+    }
+
+});
+
+/***/ }),
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "shadow-top p-3", attrs: { id: "navbar-top" } },
+    [
+      _c("div", { staticClass: "row flex-center" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-3 pr-0 f-xs",
+            on: {
+              click: function($event) {
+                _vm.$router.push("/home")
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fas fa-chevron-left" }),
+            _vm._v("\n               Back\n          ")
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", {
+          staticClass: "col-6 text-center semiBold",
+          domProps: { textContent: _vm._s(_vm.title) }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-3 pl-0 f-xs",
+            attrs: { id: "hamburger" },
+            on: { click: _vm.toggle }
+          },
+          [
+            _c("div", { class: _vm.isActive ? "hidden" : "block" }, [
+              _c("i", { staticClass: "fas fa-bars float-right" })
+            ]),
+            _vm._v(" "),
+            _c("div", { class: this.isActive ? "block" : "hidden" }, [
+              _c("i", { staticClass: "fas fa-times float-right" })
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { class: _vm.menuClass, attrs: { id: "menu" } }, [_vm._m(1)])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flex-center container f-reg", attrs: { id: "menu" } },
+      [
+        _c("div", { staticClass: "col-12 justify-content-center" }, [
+          _c("ul", [
+            _c("li", [
+              _c("a", { staticClass: "purple", attrs: { href: "/signout" } }, [
+                _c("i", { staticClass: "fas fa-sign-out-alt" }),
+                _vm._v(
+                  "\n                           Sign out\n                      "
+                )
+              ])
+            ])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container full-height flex-center" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("ul", [
+            _c("li", { staticClass: "f-reg semiBold pt-1 pb-1 main-grey" }, [
+              _c("a", { attrs: { href: "/signout" } }, [
+                _c("i", { staticClass: "fas fa-sign-out-alt" })
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4fb5cd2d", module.exports)
+  }
+}
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(239)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(241)
+/* template */
+var __vue_template__ = __webpack_require__(242)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/partials/NavBottom.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5b76c8fa", Component.options)
+  } else {
+    hotAPI.reload("data-v-5b76c8fa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(240);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("f08b62a2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b76c8fa\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NavBottom.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b76c8fa\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NavBottom.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#navbar-bottom {\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    width: 100vw;\n    height: 60px;\n    background-color: white;\n    z-index: 2001;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 241 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: {
+        name: function name() {
+            return App.user.name;
+        }
+    },
+
+    methods: {
+        emit: function emit(filter) {
+            reload(filter);
+        }
+    }
+
+});
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "shadow-bottom pt-3", attrs: { id: "navbar-bottom" } },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-3 border-right text-center purple f-reg",
+            on: {
+              click: function($event) {
+                _vm.emit("/home")
+              }
+            }
+          },
+          [_c("i", { staticClass: "fas fa-home" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-3 border-right text-center purple f-reg",
+            on: {
+              click: function($event) {
+                _vm.emit("/home?popular=1")
+              }
+            }
+          },
+          [_c("i", { staticClass: "fas fa-fire" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-3 border-right text-center purple f-reg",
+            on: {
+              click: function($event) {
+                _vm.emit("/home?unanswered=1")
+              }
+            }
+          },
+          [_c("i", { staticClass: "fas fa-comment-slash" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-3 text-center purple f-reg",
+            on: {
+              click: function($event) {
+                _vm.emit("/home?by=" + _vm.name)
+              }
+            }
+          },
+          [_c("i", { staticClass: "fas fa-user" })]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5b76c8fa", module.exports)
   }
 }
 

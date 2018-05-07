@@ -61,29 +61,28 @@ export default {
             user: false,
         };
     },
-
+ 
     created() {
         this.fetch()
+
+        window.events.$on('reload', payload => this.fetch(payload))
     },
 
     methods: {
-        fetch() {
-            axios.get(this.url()).then(this.refresh);
-        },
-
-        url() {            
-            let query = location.href.match(/by=(.*)/);
-
-            query !== null ? this.user = `?by=${query[1]}` : this.user = '';
-
-            return `${location.origin}/posts${this.user}`;
-        },
-
-        refresh({data}) {
-            this.dataSet = data;
+        fetch(payload = '') {           
+            axios.get('/posts' + this.filter(payload))
+                .then(({data}) => {
+                    this.dataSet = data
+                });
 
             window.scrollTo(0, 0);
         },
+
+        filter(filter) {
+            const match = filter.match(/(\?|\&)([^=]+)\=([^\&]+)/)
+
+            return match == null ? '' : match[0]
+        }
     }
 
 }

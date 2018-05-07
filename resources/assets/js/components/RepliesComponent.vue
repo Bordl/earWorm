@@ -62,13 +62,13 @@
             </div>
 
             
-            <add-reply-component @create="fetch" class="col-11"></add-reply-component>
+            <add-reply-component @create="add" class="col-11"></add-reply-component>
 
             <div class="col-11" v-if="replies.length > 0">
                 <p class="text-center f-reg semiBold mb-2">All replies</p>
 
                 <div v-for="(reply, index) in replies" :key="reply.id" class="mb-3">
-                    <reply-component :post="post" :id="'reply-' + reply.id" @destroyed="remove(index)" @answered="fetch" :reply="reply"></reply-component>
+                    <reply-component :post="post" :id="'reply-' + reply.id" @destroyed="remove(index)" @answered="add" :reply="reply"></reply-component>
                 </div>
             </div>
 
@@ -109,11 +109,16 @@ export default {
 
     methods: {
         fetch() {
-            axios.get('/posts/' + this.$route.params.id)
+            axios.get('/replies/' + this.$route.params.id)
                 .then(({data}) => {
-                    this.post = data
+                    
+                    this.post = data.post
                     this.replies = data.replies
                 })
+        },
+
+        add(reply) {            
+            this.replies.unshift(reply)
         },
 
         remove(index) {

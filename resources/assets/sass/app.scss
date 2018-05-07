@@ -26,8 +26,6 @@ html, body {
   margin: 0;
 }
 
-#app {padding-bottom: 80px;}
-
 .f-xxs {font-size: .7rem}
 .f-xs {font-size: .9rem}
 .f-reg {font-size: 1.1rem}
@@ -69,6 +67,18 @@ html, body {
 .hidden {display: none !important;}
 .block {display: block !important;}
 .inline-block {display: inline-block  !important;}
+
+.shadow-top {
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,.3);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,.3);
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,.3);
+}
+
+.shadow-bottom {
+  -webkit-box-shadow: 0px -3px 5px 0px rgba(0,0,0,.3);
+-moz-box-shadow: 0px -3px 5px 0px rgba(0,0,0,.3);
+box-shadow: 0px -3px 5px 0px rgba(0,0,0,.3);
+}
 
 a:active {
   box-shadow: none;

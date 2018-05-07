@@ -17,9 +17,16 @@ class RepliesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        //
+    public function index(Request $request, Post $post)
+    {   
+        $replies = $post->replies()->get();
+
+        $latest = $replies->sortByDesc('created_at');
+
+        return response([
+            'post'      => $post,
+            'replies'      => $latest,
+        ]);
     }
 
     /**
@@ -45,16 +52,15 @@ class RepliesController extends Controller
             'link' => 'required_without:body',
         ]);
 
-        $post->addReply([
+        $reply = $post->addReply([
             'user_id'   => auth()->id(),
             'post_id'   => $post->id,
             'body'      => request('body'),
             'link'      => request('link'),
+            'validate'  => 0
         ]);
 
-        return response([
-            "message" => 'Reply succesfully added.',
-        ], 200);
+        return $reply->load('owner');
     }
 
     /**

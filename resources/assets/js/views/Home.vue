@@ -1,33 +1,24 @@
 <template>
-  <div>
-        <h1 class="text-center">Latest Posts</h1>
-        
-        <hr>
-        <router-link :to="`/earworm`">
-            <button class="btn btn-outline-success btn-lg btn-block">New earWorm</button>
-        </router-link>
+    <div>
+        <nav-top title="Latest Posts"></nav-top>
 
-        <hr>
-
-        <posts-component></posts-component>
+        <posts-component class="margin-nav"></posts-component>
 
         <router-link :to="`/earworm`">
             <button class="btn btn-create f-xl">+</button>
         </router-link>
 
-        <a href="/signout">
-            <button class="btn btn-signout f-lg p-0">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
-        </a>
+        <nav-bottom></nav-bottom>
   </div>
 </template>
 
 <script>
 import PostsComponent from '../components/PostsComponent'
+import NavTop from '../partials/NavTop'
+import NavBottom from '../partials/NavBottom'
 
 export default {
-    components: {PostsComponent},
+    components: {PostsComponent, NavTop, NavBottom},
 }
 </script>
 

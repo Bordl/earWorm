@@ -20,7 +20,8 @@ class PostsController extends Controller
      */
     public function index(PostFilters $filters)
     {
-        return $posts = Post::latest()->filter($filters)->get();
+        // return $posts = Post::latest()->filter($filters)->get();
+        return Post::latest()->filter($filters)->get();
     }
 
     /**

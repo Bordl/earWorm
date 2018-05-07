@@ -20,10 +20,6 @@ class Post extends Model
 	{
 		parent::boot();
 
-		static::addGlobalScope('replyCount', function($builder) {
-			$builder->withCount('replies');
-		});
-
 		static::deleting(function ($post) {
 			$post->replies->each->delete();
 		});
@@ -36,7 +32,7 @@ class Post extends Model
 
 	public function replies()
 	{
-		return $this->hasMany(Reply::class);
+		return $this->hasMany(Reply::class)->latest();
 	}
 
 	public function creator()
@@ -46,7 +42,7 @@ class Post extends Model
 
 	public function addReply($reply)
 	{
-		$this->replies()->create($reply);
+		return $this->replies()->create($reply);
 	}
 
 	public function scopeFilter($query, $filters)

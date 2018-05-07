@@ -1,6 +1,6 @@
 <template>
   <div v-cloak id="app">
-        <div class="container mt-3">
+        <div class="container">
             <router-view />
 
             <flash-component message=""></flash-component>

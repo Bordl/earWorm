@@ -10508,24 +10508,12 @@ a.text-dark:focus {
 
 .btn-create {
   position: fixed;
-  bottom: 90px;
+  bottom: 70px;
   right: 20px;
   height: 60px;
   width: 60px;
   color: white;
   background-color: #16a085;
-  border-radius: 100%;
-  padding-top: 0;
-}
-
-.btn-signout {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  height: 60px;
-  width: 60px;
-  color: white;
-  background-color: #8e44ad;
   border-radius: 100%;
   padding-top: 0;
 }
@@ -10542,10 +10530,6 @@ body {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   margin: 0;
-}
-
-#app {
-  padding-bottom: 80px;
 }
 
 .f-xxs {
@@ -10690,6 +10674,16 @@ body {
 
 .inline-block {
   display: inline-block  !important;
+}
+
+.shadow-top {
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.shadow-bottom {
+  -webkit-box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px -3px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
 a:active {
