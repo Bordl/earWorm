@@ -123,6 +123,8 @@ class RepliesController extends Controller
             'answered' => request('answered')
         ]);
 
+        return $reply;
+
     }
 
     /**

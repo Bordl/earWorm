@@ -19,7 +19,7 @@
                                     </p>
                                 </div>
 
-                                <favorite-component v-show="!owner" :post="post"></favorite-component>
+                                <subscribe-component v-show="!owner" :post="post"></subscribe-component>
                             </div>
 
                             <hr class="col-10">
@@ -79,13 +79,13 @@
 <script>
 import PlayerComponent from './PlayerComponent'
 import ReplyComponent from './ReplyComponent'
-import FavoriteComponent from './FavoriteComponent'
+import SubscribeComponent from './SubscribeComponent'
 import AddReplyComponent from './AddReplyComponent'
 import NavTop from '../partials/NavTop'
 import NavBottom from '../partials/NavBottom'
 
 export default {
-    components: {PlayerComponent, ReplyComponent, AddReplyComponent, FavoriteComponent, NavTop, NavBottom},
+    components: {PlayerComponent, ReplyComponent, AddReplyComponent, SubscribeComponent, NavTop, NavBottom},
 
     data() {
         return {
@@ -119,7 +119,7 @@ export default {
         },
 
         remove(index) {
-            this.replies.splice(index, 1)
+            this.fetch()
 
             flash('Reply succesffully deleted.')
         },

@@ -12,13 +12,13 @@
                             <span v-text="moment(reply.created_at)"></span>
                         </p>
                     </div>
-                    <div v-if="creator && reply.validate == 0" class="float-right">
+                    <div v-if="creator && validate == 0" class="float-right">
                         <button class="btn btn-sm btn-outline-success f-xxs" @click="validated">
                             <i class="fas fa-check"></i> Right answer
                         </button>
                     </div>
 
-                    <div v-show="reply.validate == 1" class="green">
+                    <div v-show="validate == 1" class="green">
                         <div v-if="creator">
                             <button class="btn btn-sm btn-outline-danger f-xxs" @click="unValidated">
                             <i class="fas fa-times"></i> Wrong answer
@@ -109,7 +109,7 @@ export default {
         },
 
         isRightAnswer() {
-            return this.reply.validate == 0 ? '' : 'right-answer'
+            return this.validate == 0 ? '' : 'right-answer'
         }
     },
 
@@ -129,10 +129,8 @@ export default {
                     validate: this.validate,
                     answered: 1
                 })
-                .then( response => {
+                .then( ({data}) => {
                     flash('You have succesffully validated this answer')
-
-                    this.$emit('answered')
                 })
                 .catch(err => {
                     flash('Oops! Something went wrong', 'danger')
@@ -151,8 +149,6 @@ export default {
                 })
                 .then( response => {
                     flash('You succesfully invalidated this answer')
-
-                    this.$emit('answered')
                 })
                 .catch(err => {
                     flash('Oops! Something went wrong', 'danger')

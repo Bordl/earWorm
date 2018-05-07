@@ -57,7 +57,8 @@
 	#flash {
 		position: fixed;
 		right: 25px;
-		bottom: 25px;
+		bottom: 65px;
+		max-width: 85vw;
 		transform: translateX(100vw);
 		transition: transform 0.3s;
 	}

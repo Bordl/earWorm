@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\Filters\PostFilters;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class UserNotificationsController extends Controller
 {
     public function __construct()
     {
@@ -18,10 +16,9 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PostFilters $filters)
+    public function index()
     {
-        // return $posts = Post::latest()->filter($filters)->get();
-        return Post::latest()->filter($filters)->get();
+        return auth()->user()->unreadNotifications;
     }
 
     /**
@@ -31,7 +28,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -42,41 +39,27 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        // validate
-        $request->validate([
-            'description' => 'string|nullable'
-        ]);
-
-        // create new post
-        $post = Post::create([
-            'user_id'   => request('user_id'),
-            'description'   => request('description')
-        ]);
-
-        $postID = $post->id;
-        $post->subscribe();
-
-        return $postID;
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Post $post)
+    public function show($id)
     {
-        return $post;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
         //
     }
@@ -85,10 +68,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -96,17 +79,11 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($notificationID)
     {
-        $this->authorize('update', $post);
-        
-        $post->delete();
-
-        return response([
-            'message' => 'Post successfully deleted'
-        ], 200);
+        auth()->user()->notifications()->findOrFail($notificationID)->markAsRead();
     }
 }

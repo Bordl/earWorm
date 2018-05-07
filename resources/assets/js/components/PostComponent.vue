@@ -13,7 +13,8 @@
 
                     </div>
 
-                    <favorite-component v-show="!owner" :post="post"></favorite-component>
+                    <subscribe-component v-show="!owner" :post="post"></subscribe-component>
+                    <!-- <favorite-component v-show="!owner" :post="post"></favorite-component> -->
                 </div>
                 
                 <hr>
@@ -60,10 +61,11 @@
 
 <script>
 import PlayerComponent from './PlayerComponent'
-import FavoriteComponent from './FavoriteComponent'
+import SubscribeComponent from './SubscribeComponent'
+// import FavoriteComponent from './FavoriteComponent'
 
 export default {
-    components: {PlayerComponent, FavoriteComponent},
+    components: {PlayerComponent, SubscribeComponent},
 
     props: ['data'],
 

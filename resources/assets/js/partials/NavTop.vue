@@ -7,15 +7,20 @@
                     &nbsp;Back
                 </div>
             </div>
+
             <div v-else class="col-3 pr-0 f-xs"></div>
+
             <div class="col-6 text-center semiBold" v-text="pageName"></div>
-            <div id="hamburger" class="col-3 pl-0 f-xs" @click="toggle">
+
+            <user-notifications-component class="col-1 flex-center pl-2 pr-2 f-xs"></user-notifications-component>
+            
+            <div id="hamburger" class="col-1 flex-center pl-2 pr-2 f-xs" @click="toggle">
                 <div :class="isActive ? 'hidden' : 'block'">
-                    <i class="fas fa-bars float-right"></i>
+                    <i class="fas fa-bars"></i>
                 </div>
 
                 <div :class="this.isActive ? 'block' : 'hidden'">
-                    <i class="fas fa-times float-right"></i>
+                    <i class="fas fa-times"></i>
                 </div>
             </div>
         </div>
@@ -52,8 +57,12 @@
 </template>
 
 <script>
+import UserNotificationsComponent from '../components/UserNotificationsComponent'
+
 export default {
     props: ['title', 'home'],
+
+    components: {UserNotificationsComponent},
 
     data() {
         return {

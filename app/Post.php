@@ -14,7 +14,7 @@ class Post extends Model
 
 	protected $with = ['recording', 'replies', 'creator'];
 
-	protected $appends = ['isFavorited'];
+	protected $appends = ['isFavorited', 'isSubscribedTo'];
 
 	protected static function boot()
 	{
@@ -42,11 +42,47 @@ class Post extends Model
 
 	public function addReply($reply)
 	{
-		return $this->replies()->create($reply);
+		$reply = $this->replies()->create($reply);
+
+		$this->subscriptions->filter(function($sub) use ($reply) {
+			return $sub->user_id != $reply->user_id;
+		})
+			->each
+			->notify($reply);
+
+		return $reply;
 	}
 
 	public function scopeFilter($query, $filters)
 	{
 		return $filters->apply($query);
+	}
+
+	public function subscribe($userID = null)
+	{
+		$this->subscriptions()->create([
+			'user_id'		=> $userID ?: auth()->id(),
+		]);
+
+		return $this;
+	}
+
+	public function unsubscribe($userID = null)
+	{
+		$this->subscriptions()
+			->where('user_id', $userID ?: auth()->id())
+			->delete();
+	}
+
+	public function subscriptions()
+	{
+		return $this->hasMany(PostSubscription::class);
+	}
+
+	public function getIsSubscribedToAttribute()
+	{
+		return $this->subscriptions()
+			->where('user_id', auth()->id())
+			->exists();
 	}
 }

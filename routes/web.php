@@ -8,17 +8,25 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/profiles/{user}', 'ProfilesControllers@show');
+Route::get('/profiles/{user}', 'ProfilesControllers@show')->name('profile');
+
+Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index');
+Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
 
 Route::get('/posts', 'PostsController@index');
 Route::post('/posts', 'PostsController@store');
 Route::get('/posts/{post}', 'PostsController@show');
 Route::delete('/posts/{post}', 'PostsController@destroy');
+
 Route::post('/posts/{post}/replies', 'RepliesController@store');
 Route::get('/replies/{post}', 'RepliesController@index');
 Route::delete('/replies/{reply}', 'RepliesController@destroy');
 Route::patch('/replies/{reply}', 'RepliesController@update');
 Route::patch('/replies/validate/{reply}', 'RepliesController@validated');
+
+Route::post('/posts/{post}/subscriptions', 'PostSubscriptionsController@store');
+Route::delete('/posts/{post}/subscriptions', 'PostSubscriptionsController@destroy');
+
 Route::post('/recordings', 'RecordingsController@store');
 Route::get('/recordings/{recording}', 'RecordingsController@show');
 

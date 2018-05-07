@@ -26,6 +26,11 @@ html, body {
   margin: 0;
 }
 
+li {
+  text-decoration: none;
+  list-style: none;
+}
+
 .f-xxs {font-size: .7rem}
 .f-xs {font-size: .9rem}
 .f-reg {font-size: 1.1rem}

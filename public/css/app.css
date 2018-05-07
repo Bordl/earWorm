@@ -10532,6 +10532,11 @@ body {
   margin: 0;
 }
 
+li {
+  text-decoration: none;
+  list-style: none;
+}
+
 .f-xxs {
   font-size: .7rem;
 }
