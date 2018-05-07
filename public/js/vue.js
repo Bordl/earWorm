@@ -15118,7 +15118,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15131,6 +15131,10 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PostComponent__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PostComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__PostComponent__);
+//
+//
+//
+//
 //
 //
 //
@@ -15713,14 +15717,18 @@ var render = function() {
   return _c(
     "div",
     _vm._l(_vm.dataSet, function(post) {
-      return _vm.dataSet
+      return _vm.dataSet.length !== 0
         ? _c(
             "div",
             { key: post.id },
             [_c("post-component", { attrs: { data: post } })],
             1
           )
-        : _vm._e()
+        : _c("div", [
+            _c("p", { staticClass: "f-reg" }, [
+              _vm._v("There are no posts yet.")
+            ])
+          ])
     })
   )
 }

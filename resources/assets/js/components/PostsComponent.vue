@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div v-cloak v-if="dataSet" v-for="post in dataSet" :key="post.id">
+        <div v-cloak v-if="dataSet.length !== 0" v-for="post in dataSet" :key="post.id">
             <post-component :data="post"></post-component>
+        </div>
+
+        <div v-else>
+            <p class="f-reg">There are no posts yet.</p>
         </div>
     </div>
 </template>
