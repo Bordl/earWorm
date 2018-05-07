@@ -1,7 +1,9 @@
 <template>
     <div>
-        <div v-cloak v-if="dataSet.length !== 0" v-for="post in dataSet" :key="post.id">
-            <post-component :data="post"></post-component>
+        <div v-if="dataSet.length !== 0">
+            <div v-cloak v-for="post in dataSet" :key="post.id">
+                <post-component :data="post"></post-component>
+            </div>
         </div>
 
         <div v-else>
