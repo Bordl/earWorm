@@ -34,6 +34,9 @@ export default {
             axios.get('/posts' + this.filter(payload))
                 .then(({data}) => {
                     this.dataSet = data
+
+                    console.log(this.dataSet.length);
+                    
                 });
 
             window.scrollTo(0, 0);
