@@ -17,6 +17,12 @@ export default {
         };
     },
 
+    watch: {
+        post(){
+            return this.isActive = this.post.isSubscribedTo
+        }
+    },
+
     methods: {
         toggle() {
             this.isActive == true ? this.unsubscribe() : this.subscribe()

@@ -100,6 +100,12 @@ export default {
         },
     },
 
+    watch: {
+        post() {
+            return this.post
+        }
+    },
+
     created() {        
         this.fetch()
     },
@@ -115,7 +121,8 @@ export default {
         },
 
         add(reply) {            
-            this.replies.unshift(reply)
+            // this.replies.unshift(reply)
+            this.fetch()
         },
 
         remove(index) {

@@ -85,6 +85,16 @@ class Post extends Model
 		return $this;
 	}
 
+	public function canUnsubscribe($post)
+	{
+        $can = $post->replies()
+            ->where('user_id', auth()->id())
+            ->where('post_id', $post->id)
+			->count();
+			
+		return $can == 1 ? true : false;
+	}
+
 	public function unsubscribe($userID = null)
 	{
 		$this->subscriptions()
