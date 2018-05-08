@@ -140,6 +140,7 @@ class RepliesController extends Controller
         $this->authorize('update', $reply);
 
         $reply->post->unsubscribe();
+
         $reply->deleteAssociatedNotification()
             ->delete();
 
