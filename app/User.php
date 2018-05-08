@@ -45,7 +45,6 @@ class User extends Authenticatable
 
     public function createPost($post){
         $post = $this->posts()->create($post);
-
         
         $this->following->filter(function($fol) use ($post) {
 			return $fol->follower_id != $post->follwer_id;
@@ -84,5 +83,10 @@ class User extends Authenticatable
             ->where('user_id', $leaderId)
             ->where('follower_id', auth()->id())
 			->exists();
-	}
+    }
+    
+    public function followers()
+    {
+        return $this->following()->where('user_id', $this->id)->get();
+    }
 }

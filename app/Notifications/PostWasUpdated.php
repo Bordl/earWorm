@@ -61,6 +61,9 @@ class PostWasUpdated extends Notification
         return [
             'message'   => $this->reply->owner->name . ' replied to an earWorm you have subscribed to. Go check it out!',
             'postID'   => $this->post->id,
+            'replyID'   => $this->reply->id,
         ];
     }
+
+    
 }

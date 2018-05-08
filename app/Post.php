@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use App\Activity;
 use ReflectionClass;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,18 @@ class Post extends Model
 
 		static::deleting(function ($post) {
 			$post->replies->each->delete();
+
+			$followers = $post->creator->followers();
+
+			foreach ($followers as $follower) {
+				$user = User::find($follower->follower_id);
+
+				$user->notifications->filter(function($notification) use ($post) {
+						return $notification->data['postID'] == $post->id;
+					})
+					->each
+					->delete();
+			}
 		});
 	}
 	
@@ -39,6 +52,11 @@ class Post extends Model
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}
+
+	public function notifications()
+    {
+        return $this->morphTo();
+    }
 
 	public function addReply($reply)
 	{

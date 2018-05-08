@@ -37,9 +37,15 @@ class Reply extends Model
 
     public function deleteAssociatedNotification()
     {
-        if ($this->post->creator->notifications->where('created_at', $this->created_at)->count() == 0) return $this;
+        $user = $this->post->creator;
 
-        $this->post->creator->notifications->where('created_at', $this->created_at)->first()->delete();
+        if ($user->notifications->count() == 0) return $this;
+
+        foreach ($user->notifications as $notification) {
+            if ($notification->data['postID'] == $this->post->id) {
+                $notification->delete();
+            }
+        }
 
         return $this;
     }
