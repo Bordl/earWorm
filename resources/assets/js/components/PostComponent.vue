@@ -4,17 +4,20 @@
             <div class="card-body">
                 <div class="level">
                     <div class="flex">
-                        <p class="mb-0">
-                            <router-link :to="`/profiles/${post.user_id}`">
-                                <em><span class="light" v-text="post.creator.name"></span>:</em>
-                            </router-link>
-                            <span class="f-xs regular"><em v-text="moment(post.created_at)"></em>...</span>
-                        </p>
+                        <div class="level">
+                            <follow-component :long="false" v-show="!owner" :post="post"></follow-component>
+
+                            <p class="flex pl-2 mb-0">
+                                <router-link :to="`/profiles/${post.creator.name}`">
+                                    <em><span class="light" v-text="post.creator.name"></span>:</em>
+                                </router-link>
+                                <span class="f-xs regular"><em v-text="moment(post.created_at)"></em>...</span>
+                            </p>
+                        </div>
 
                     </div>
 
-                    <follow-component v-show="!owner" :post="post">></follow-component>
-                    <!-- <subscribe-component v-show="!owner" :post="post"></subscribe-component> -->
+                    <subscribe-component :long="false" v-show="!owner" :post="post"></subscribe-component>
                     <!-- <favorite-component v-show="!owner" :post="post"></favorite-component> -->
                 </div>
                 
@@ -63,11 +66,11 @@
 <script>
 import PlayerComponent from './PlayerComponent'
 import FollowComponent from './FollowComponent'
-// import SubscribeComponent from './SubscribeComponent'
+import SubscribeComponent from './SubscribeComponent'
 // import FavoriteComponent from './FavoriteComponent'
 
 export default {
-    components: {PlayerComponent, FollowComponent},
+    components: {PlayerComponent, FollowComponent, SubscribeComponent},
 
     props: ['data'],
 

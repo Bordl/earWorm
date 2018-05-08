@@ -2,7 +2,11 @@
     <div id="navbar-top" class="shadow-top p-3">
         <div class="row flex-center">
             <div v-if="!home" class="col-3 pr-0 f-xs">
-                <div @click="$router.push('/home')">
+                <div v-show="!back" @click="$router.push('/home')">
+                    <i class="fas fa-chevron-left"></i>
+                    &nbsp;Back
+                </div>
+                <div v-show="back" @click="$router.go(-1)">
                     <i class="fas fa-chevron-left"></i>
                     &nbsp;Back
                 </div>
@@ -60,7 +64,7 @@
 import UserNotificationsComponent from '../components/UserNotificationsComponent'
 
 export default {
-    props: ['title', 'home'],
+    props: ['title', 'home', 'back'],
 
     components: {UserNotificationsComponent},
 

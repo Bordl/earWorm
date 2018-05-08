@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import RepliesComponent from './components/RepliesComponent.vue';
-import EarWormComponent from './components/EarWormComponent.vue';
+import ProfileComponent from './views/ProfileComponent.vue';
+import RepliesComponent from './views/RepliesComponent.vue';
+import EarWormComponent from './views/EarWormComponent.vue';
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ export default new Router({
         path: '/posts/:id',
         name: 'RepliesComponent',
         component: RepliesComponent,
+      },
+      {
+        path: '/profiles/:name',
+        name: 'ProfileComponent',
+        component: ProfileComponent,
       },
       {
         path: '/earworm',

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-top :home="true" :title="title"></nav-top>
+        <nav-top :back="false" :home="true" :title="title"></nav-top>
 
         <posts-component class="margin-nav"></posts-component>
 

@@ -1,15 +1,15 @@
 <template>
   <div>
       <button @click="toggle" class="btn btn-sm btn-block f-xxs" :class="isActive ? 'btn-success' : 'btn-default' ">
-          <div :class="isActive ? 'block' : 'hidden'"><i class="fas fa-bell"></i><span class="pl-1">Subscribed</span></div>
-          <div :class="isActive ? 'hidden' : 'block'"><i class="fas fa-bell-slash"></i><span class="pl-1">Unsubscribed</span></div>
+          <div :class="isActive ? 'block' : 'hidden'"><i class="fas fa-bookmark"></i><span class="pl-1" v-show="long">Subscribed</span></div>
+          <div :class="isActive ? 'hidden' : 'block'"><i class="far fa-bookmark"></i><span class="pl-1" v-show="long">Unsubscribed</span></div>
       </button>
   </div>
 </template>
 
 <script>
 export default {
-    props: ['post'],
+    props: ['post', 'long'],
 
     data() {
         return {

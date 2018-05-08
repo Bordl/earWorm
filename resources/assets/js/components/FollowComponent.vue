@@ -1,15 +1,15 @@
 <template>
   <div>
       <button v-cloak @click="toggle" class="btn btn-sm btn-block f-xxs" :class="isActive ? 'btn-success' : 'btn-default' ">
-          <div :class="isActive ? 'block' : 'hidden'"><i class="fas fa-star"></i><span class="pl-1">Following</span></div>
-          <div :class="isActive ? 'hidden' : 'block'"><i class="far fa-star"></i><span class="pl-1">Unfollowed</span></div>
+          <div :class="isActive ? 'block' : 'hidden'"><i class="fas fa-star"></i><span class="pl-1" v-show="long">Following</span></div>
+          <div :class="isActive ? 'hidden' : 'block'"><i class="far fa-star"></i><span class="pl-1" v-show="long">Unfollowed</span></div>
       </button>
   </div>
 </template>
 
 <script>
 export default {
-    props: ['post'],
+    props: ['post', 'long'],
 
     data() {
         return {

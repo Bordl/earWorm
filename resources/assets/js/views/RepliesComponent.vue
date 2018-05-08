@@ -1,6 +1,6 @@
 <template>
 <div>
-    <nav-top title="What's this song"></nav-top>
+    <nav-top :back="true" title="What's this song"></nav-top>
 
     <div class="margin-nav">
         <div v-if="post" class="row justify-content-center">
@@ -11,12 +11,15 @@
                         <div class="row">
                             <div class="level col-12">
                                 <div class="flex">
-                                    <p class="mb-0 light">
-                                        <router-link :to="`/profiles/${post.user_id}`">
-                                            <em><span v-text="post.creator.name"></span>:</em>
-                                        </router-link>
-                                        <span class="f-xs regular"><em v-text="moment(post.created_at)"></em>...</span>
-                                    </p>
+                                    <div class="mb-0 light level">
+                                        <follow-component :long="false" v-show="!owner" :post="post"></follow-component>
+                                        <p class="flex pl-2 mb-0">
+                                            <router-link :to="`/profiles/${post.creator.name}`">
+                                                <em><span v-text="post.creator.name"></span>:</em>
+                                            </router-link>
+                                            <span class="f-xs regular"><em v-text="moment(post.created_at)"></em>...</span>
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <subscribe-component v-show="!owner" :post="post"></subscribe-component>
@@ -77,15 +80,16 @@
 </template>
 
 <script>
-import PlayerComponent from './PlayerComponent'
-import ReplyComponent from './ReplyComponent'
-import SubscribeComponent from './SubscribeComponent'
-import AddReplyComponent from './AddReplyComponent'
+import PlayerComponent from '../components/PlayerComponent'
+import ReplyComponent from '../components/ReplyComponent'
+import SubscribeComponent from '../components/SubscribeComponent'
+import FollowComponent from '../components/FollowComponent'
+import AddReplyComponent from '../components/AddReplyComponent'
 import NavTop from '../partials/NavTop'
 import NavBottom from '../partials/NavBottom'
 
 export default {
-    components: {PlayerComponent, ReplyComponent, AddReplyComponent, SubscribeComponent, NavTop, NavBottom},
+    components: {PlayerComponent, ReplyComponent, AddReplyComponent, SubscribeComponent, FollowComponent, NavTop, NavBottom},
 
     data() {
         return {

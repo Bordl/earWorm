@@ -8,7 +8,7 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/profiles/{user}', 'ProfilesControllers@show')->name('profile');
+Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
 
 Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index');
 Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
@@ -26,7 +26,7 @@ Route::patch('/replies/validate/{reply}', 'RepliesController@validated');
 
 Route::get('/users/{user}', 'FollowUsersController@index');
 Route::post('/users/{user}/follow', 'FollowUsersController@store');
-Route::delete('/user/{user}/follow', 'FollowUsersController@destroy');
+Route::delete('/users/{user}/follow', 'FollowUsersController@destroy');
 
 Route::post('/posts/{post}/subscriptions', 'PostSubscriptionsController@store');
 Route::delete('/posts/{post}/subscriptions', 'PostSubscriptionsController@destroy');
