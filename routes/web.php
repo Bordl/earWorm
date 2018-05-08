@@ -14,7 +14,7 @@ Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index'
 Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
 
 Route::get('/posts', 'PostsController@index');
-Route::post('/posts', 'PostsController@store');
+Route::post('/posts/{user}', 'PostsController@store');
 Route::get('/posts/{post}', 'PostsController@show');
 Route::delete('/posts/{post}', 'PostsController@destroy');
 
@@ -23,6 +23,10 @@ Route::get('/replies/{post}', 'RepliesController@index');
 Route::delete('/replies/{reply}', 'RepliesController@destroy');
 Route::patch('/replies/{reply}', 'RepliesController@update');
 Route::patch('/replies/validate/{reply}', 'RepliesController@validated');
+
+Route::get('/users/{user}', 'FollowUsersController@index');
+Route::post('/users/{user}/follow', 'FollowUsersController@store');
+Route::delete('/user/{user}/follow', 'FollowUsersController@destroy');
 
 Route::post('/posts/{post}/subscriptions', 'PostSubscriptionsController@store');
 Route::delete('/posts/{post}/subscriptions', 'PostSubscriptionsController@destroy');

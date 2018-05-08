@@ -13,7 +13,8 @@
 
                     </div>
 
-                    <subscribe-component v-show="!owner" :post="post"></subscribe-component>
+                    <follow-component v-show="!owner" :post="post">></follow-component>
+                    <!-- <subscribe-component v-show="!owner" :post="post"></subscribe-component> -->
                     <!-- <favorite-component v-show="!owner" :post="post"></favorite-component> -->
                 </div>
                 
@@ -61,11 +62,12 @@
 
 <script>
 import PlayerComponent from './PlayerComponent'
-import SubscribeComponent from './SubscribeComponent'
+import FollowComponent from './FollowComponent'
+// import SubscribeComponent from './SubscribeComponent'
 // import FavoriteComponent from './FavoriteComponent'
 
 export default {
-    components: {PlayerComponent, SubscribeComponent},
+    components: {PlayerComponent, FollowComponent},
 
     props: ['data'],
 

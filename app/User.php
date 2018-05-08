@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\UserSubscription;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'description',
     ];
 
     /**
@@ -41,4 +42,47 @@ class User extends Authenticatable
     {
         return $this->hasMany(Activity::class);
     }
+
+    public function createPost($post){
+        $post = $this->posts()->create($post);
+
+        
+        $this->following->filter(function($fol) use ($post) {
+			return $fol->follower_id != $post->follwer_id;
+		})
+			->each
+			->notify($post);
+
+		return $post;
+    }
+
+    public function follow($userID = null)
+    {
+		$this->following()->create([
+			'follower_id'		    => auth()->id(),
+        ]);
+
+		return $this;
+    }
+    
+    public function unfollow($userID = null)
+	{
+		$this->following()
+			->where('user_id', $this->id)
+			->where('follower_id', auth()->id())
+			->delete();
+	}
+
+    public function following()
+	{
+		return $this->hasMany(FollowSubscription::class );
+    }
+    
+    public function isFollowing($leaderId)
+	{
+		return $this->following()
+            ->where('user_id', $leaderId)
+            ->where('follower_id', auth()->id())
+			->exists();
+	}
 }

@@ -87,8 +87,6 @@
             
         </div>
     </div>
-
-    <nav-bottom :home="false"></nav-bottom>
   </div>
 </template>
 
@@ -193,8 +191,7 @@ export default {
         },
 
         create() {
-            axios.post('/posts', {
-                user_id: App.user.id,
+            axios.post('/posts/' + App.user.name, {
                 description: this.description,
             })
                 .then(response => {                    

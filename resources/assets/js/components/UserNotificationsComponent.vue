@@ -3,13 +3,14 @@
         <li v-if="notifications.length" id="notifications" class="dropdown">
             <a href="#" class="dropdow-toggle green" data-toggle="dropdown">
                 <i class="fas fa-bell"></i>
+                <span class="notification-number text-center semiBold" v-text="notifications.length"></span>
             </a>
 
             <ul class="dropdown-menu f-xs">
-                <li v-for="notification in notifications" :key="notification.id">
-                    <router-link :to="'/posts/' + notification.data.postID" class="green" v-text="notification.data.message" @click.prevent="markAsRead(notification)">
+                <li v-for="notification in notifications" :key="notification.id" class="border-bottom p-2">
+                    <div class="green" v-text="notification.data.message" @click="markAsRead(notification)">
 
-                    </router-link>
+                    </div>
                 </li>
             </ul>
         </li>
@@ -46,9 +47,12 @@ export default {
         },
 
         markAsRead(notification){
-            axios.delete('/profiles/' + App.user.id + '/notifications')
-                .then(({data}) => {
-                    this.notifications = data
+            axios.delete('/profiles/' + App.user.id + '/notifications/' + notification.id)
+                .then( response => {
+                    this.fetch()
+
+                    this.$router.push('/posts/' + notification.data.postID)
+
                 })
                 .catch(err => {
                     flash('Oops! something went wrong.', 'danger')
@@ -71,6 +75,19 @@ export default {
     border-radius: 0;
     padding: 15px 25px;
     background-color: #eee;
+}
+
+.notification-number {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    z-index: 3003;
+    width: 10px;
+    height: 10px;
+    background: #8e44ad;
+    border-radius: 100%;
+    color: white;
+    font-size: .5rem;
 }
 
 </style>

@@ -15290,7 +15290,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -15303,8 +15303,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlayerComponent__ = __webpack_require__(140);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlayerComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__PlayerComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SubscribeComponent__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SubscribeComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__SubscribeComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FollowComponent__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FollowComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__FollowComponent__);
+//
 //
 //
 //
@@ -15369,10 +15370,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+// import SubscribeComponent from './SubscribeComponent'
 // import FavoriteComponent from './FavoriteComponent'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { PlayerComponent: __WEBPACK_IMPORTED_MODULE_0__PlayerComponent___default.a, SubscribeComponent: __WEBPACK_IMPORTED_MODULE_1__SubscribeComponent___default.a },
+    components: { PlayerComponent: __WEBPACK_IMPORTED_MODULE_0__PlayerComponent___default.a, FollowComponent: __WEBPACK_IMPORTED_MODULE_1__FollowComponent___default.a },
 
     props: ['data'],
 
@@ -15612,17 +15614,21 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("subscribe-component", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.owner,
-                  expression: "!owner"
-                }
-              ],
-              attrs: { post: _vm.post }
-            })
+            _c(
+              "follow-component",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.owner,
+                    expression: "!owner"
+                  }
+                ],
+                attrs: { post: _vm.post }
+              },
+              [_vm._v(">")]
+            )
           ],
           1
         ),
@@ -17185,7 +17191,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17198,8 +17204,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_NavTop__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_NavTop___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_NavTop__);
-//
-//
 //
 //
 //
@@ -17388,8 +17392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         create: function create() {
             var _this2 = this;
 
-            axios.post('/posts', {
-                user_id: App.user.id,
+            axios.post('/posts/' + App.user.name, {
                 description: this.description
             }).then(function (response) {
                 _this2.postID = response.data;
@@ -17684,9 +17687,7 @@ var render = function() {
             ])
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("nav-bottom", { attrs: { home: false } })
+      ])
     ],
     1
   )
@@ -18946,7 +18947,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.dropdown-menu.show {\n    position: fixed;\n    -webkit-transform: translate3d(-342px, 29px, 0px) !important;\n            transform: translate3d(-342px, 29px, 0px) !important;\n    top: 50px;\n    left: -1px;\n    display: block;\n    width: 102vw;\n    border-radius: 0;\n    padding: 15px 25px;\n    background-color: #eee;\n}\n\n", ""]);
+exports.push([module.i, "\n.dropdown-menu.show {\n    position: fixed;\n    -webkit-transform: translate3d(-342px, 29px, 0px) !important;\n            transform: translate3d(-342px, 29px, 0px) !important;\n    top: 50px;\n    left: -1px;\n    display: block;\n    width: 102vw;\n    border-radius: 0;\n    padding: 15px 25px;\n    background-color: #eee;\n}\n.notification-number {\n    position: absolute;\n    top: 7px;\n    left: 7px;\n    z-index: 3003;\n    width: 10px;\n    height: 10px;\n    background: #8e44ad;\n    border-radius: 100%;\n    color: white;\n    font-size: .5rem;\n}\n\n", ""]);
 
 // exports
 
@@ -18957,6 +18958,7 @@ exports.push([module.i, "\n.dropdown-menu.show {\n    position: fixed;\n    -web
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -19008,10 +19010,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         markAsRead: function markAsRead(notification) {
             var _this2 = this;
 
-            axios.delete('/profiles/' + App.user.id + '/notifications').then(function (_ref2) {
-                var data = _ref2.data;
+            axios.delete('/profiles/' + App.user.id + '/notifications/' + notification.id).then(function (response) {
+                _this2.fetch();
 
-                _this2.notifications = data;
+                _this2.$router.push('/posts/' + notification.data.postID);
             }).catch(function (err) {
                 flash('Oops! something went wrong.', 'danger');
 
@@ -19032,7 +19034,21 @@ var render = function() {
   return _c("div", [
     _vm.notifications.length
       ? _c("li", { staticClass: "dropdown", attrs: { id: "notifications" } }, [
-          _vm._m(0),
+          _c(
+            "a",
+            {
+              staticClass: "dropdow-toggle green",
+              attrs: { href: "#", "data-toggle": "dropdown" }
+            },
+            [
+              _c("i", { staticClass: "fas fa-bell" }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "notification-number text-center semiBold",
+                domProps: { textContent: _vm._s(_vm.notifications.length) }
+              })
+            ]
+          ),
           _vm._v(" "),
           _c(
             "ul",
@@ -19040,23 +19056,20 @@ var render = function() {
             _vm._l(_vm.notifications, function(notification) {
               return _c(
                 "li",
-                { key: notification.id },
+                { key: notification.id, staticClass: "border-bottom p-2" },
                 [
-                  _c("router-link", {
+                  _c("div", {
                     staticClass: "green",
-                    attrs: { to: "/posts/" + notification.data.postID },
                     domProps: {
                       textContent: _vm._s(notification.data.message)
                     },
                     on: {
                       click: function($event) {
-                        $event.preventDefault()
                         _vm.markAsRead(notification)
                       }
                     }
                   })
-                ],
-                1
+                ]
               )
             })
           )
@@ -19064,27 +19077,206 @@ var render = function() {
       : _c("div", [_c("i", { staticClass: "fas fa-bell-slash" })])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "dropdow-toggle green",
-        attrs: { href: "#", "data-toggle": "dropdown" }
-      },
-      [_c("i", { staticClass: "fas fa-bell" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-46962bd2", module.exports)
+  }
+}
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(254)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(256)
+/* template */
+var __vue_template__ = __webpack_require__(257)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/FollowComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ab9cc536", Component.options)
+  } else {
+    hotAPI.reload("data-v-ab9cc536", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(255);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("2e8f6b57", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ab9cc536\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FollowComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ab9cc536\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FollowComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 256 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['post'],
+
+    data: function data() {
+        return {
+            isActive: false
+        };
+    },
+    created: function created() {
+        this.isFollowing();
+    },
+
+
+    methods: {
+        isFollowing: function isFollowing() {
+            var _this = this;
+
+            axios.get('/users/' + this.post.creator.name).then(function (_ref) {
+                var data = _ref.data;
+                return _this.isActive = data;
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        },
+        toggle: function toggle() {
+            this.isActive == true ? this.unfollow() : this.follow();
+        },
+        follow: function follow() {
+            axios.post('/users/' + this.post.creator.name + '/follow').then(flash('You are now following ' + this.post.creator.name + '. You will be notified when they post new Earworms.')).catch(function (err) {
+                flash('Oops! something went wrong', 'danger');
+
+                console.log(err);
+            });
+            this.isActive = !this.isActive;
+        },
+        unfollow: function unfollow() {
+            axios.delete('/users/' + this.post.creator.name + '/follow').then(flash('You are not following ' + this.post.creator.name + ' anymore. You will no longer be notified.')).catch(function (err) {
+                flash('Oops! something went wrong', 'danger');
+
+                console.log(err);
+            });
+            this.isActive = !this.isActive;
+        }
+    }
+});
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-block f-xxs",
+        class: _vm.isActive ? "btn-success" : "btn-default",
+        on: { click: _vm.toggle }
+      },
+      [
+        _c("div", { class: _vm.isActive ? "block" : "hidden" }, [
+          _c("i", { staticClass: "fas fa-star" }),
+          _c("span", { staticClass: "pl-1" }, [_vm._v("Followed")])
+        ]),
+        _vm._v(" "),
+        _c("div", { class: _vm.isActive ? "hidden" : "block" }, [
+          _c("i", { staticClass: "far fa-star" }),
+          _c("span", { staticClass: "pl-1" }, [_vm._v("Unfollowed")])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ab9cc536", module.exports)
   }
 }
 

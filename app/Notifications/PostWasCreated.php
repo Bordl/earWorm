@@ -7,21 +7,20 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PostWasUpdated extends Notification
+class PostWasCreated extends Notification
 {
     use Queueable;
 
-    protected $post, $reply;
+    protected $post;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($post, $reply)
+    public function __construct($post)
     {
         $this->post = $post;
-        $this->reply = $reply;
     }
 
     /**
@@ -59,7 +58,7 @@ class PostWasUpdated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message'   => $this->reply->owner->name . ' replied to an earWorm you have subscribed to. Go check it out!',
+            'message'   => $this->post->creator->name . ' created a new earWorm. Go check it out!',
             'postID'   => $this->post->id,
         ];
     }

@@ -34,4 +34,11 @@ class Reply extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function deleteAssociatedNotification()
+    {
+        $this->post->creator->notifications->where('created_at', $this->created_at)->first()->delete();
+
+        return $this;
+    }
 }

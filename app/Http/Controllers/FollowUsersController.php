@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
-class UserNotificationsController extends Controller
+class FollowUsersController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index', 'show']);
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        return auth()->user()->unreadNotifications;
+        $isFollowing = $user->isFollowing($user->id);
+
+        return $isFollowing ? 'true' : 'false';
     }
 
     /**
@@ -37,9 +35,9 @@ class UserNotificationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+        $user->follow();
     }
 
     /**
@@ -82,8 +80,8 @@ class UserNotificationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($user, $notificationID)
+    public function destroy(User $user)
     {
-        auth()->user()->notifications()->findOrFail($notificationID)->markAsRead();
+        $user->unfollow();
     }
 }

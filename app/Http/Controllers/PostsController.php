@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Filters\PostFilters;
 use Illuminate\Http\Request;
+use App\User;
 
 class PostsController extends Controller
 {
@@ -40,23 +41,25 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        // validate
         $request->validate([
             'description' => 'string|nullable'
         ]);
 
         // create new post
-        $post = Post::create([
-            'user_id'   => request('user_id'),
+        // $post = Post::create([
+        //     'user_id'   => request('user_id'),
+        //     'description'   => request('description')
+        // ])->subscribe();
+
+
+        $post = $user->createPost([
+            'user_id'   => auth()->id(),
             'description'   => request('description')
-        ]);
+        ])->subscribe();
 
-        $postID = $post->id;
-        $post->subscribe();
-
-        return $postID;
+        return $post->id;
     }
 
     /**

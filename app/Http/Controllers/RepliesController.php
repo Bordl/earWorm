@@ -58,7 +58,9 @@ class RepliesController extends Controller
             'body'      => request('body'),
             'link'      => request('link'),
             'validate'  => 0
-        ]);
+        ]); 
+        
+        $post->subscribe();
 
         return $reply->load('owner');
     }
@@ -137,7 +139,9 @@ class RepliesController extends Controller
     {
         $this->authorize('update', $reply);
 
-        $reply->delete();
+        $reply->post->unsubscribe();
+        $reply->deleteAssociatedNotification()
+            ->delete();
 
         return response([
             'message'   => 'Reply successfully deleted.'

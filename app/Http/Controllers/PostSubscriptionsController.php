@@ -41,7 +41,7 @@ class PostSubscriptionsController extends Controller
      */
     public function store(Request $request, Post $post)
     {
-        $post->subscribe();
+        $post->subscribe(); 
     }
 
     /**
