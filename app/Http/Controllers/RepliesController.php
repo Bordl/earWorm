@@ -60,8 +60,8 @@ class RepliesController extends Controller
             'validate'  => 0
         ]); 
         
-        $post->subscribe();
-
+        if (! $post->isSubscribedTo) {$post->subscribe();};
+        
         return $reply->load('owner');
     }
 

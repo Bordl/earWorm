@@ -32,8 +32,8 @@ class PostWasUpdated extends Notification
      */
     public function via($notifiable)
     {
-        // return ['mail', 'database'];
-        return ['database'];
+        return ['mail', 'database'];
+        // return ['database'];
     }
 
     /**
@@ -45,9 +45,9 @@ class PostWasUpdated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('An earWorm you have subscribed to has been updated.')
+                    ->action('Go see it', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
+                    ->line('earworm.bordl.net');
     }
 
     /**
