@@ -27699,7 +27699,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27789,6 +27789,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -27802,15 +27828,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             title: false,
-            dataSet: false
+            dataSet: false,
+            edit: false,
+            biog: '',
+            spotify: ''
         };
     },
 
 
     computed: {
-        editable: function editable() {
-            return App.user.id == this.dataSet.profile.user_id ? true : false;
-        },
         owner: function owner() {
             return App.user.id == this.dataSet.profile.user_id ? true : false;
         }
@@ -27830,9 +27856,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 _this.title = data.user.name;
                 _this.dataSet = data;
+                _this.biog = data.profile.biog;
+                _this.spotify = data.profile.spotify;
             }).catch(function (err) {
                 flash('Oops! Something went wrong.', 'danger');
 
+                console.log(err);
+            });
+        },
+        toggle: function toggle() {
+            this.edit = !this.edit;
+        },
+        update: function update() {
+            var _this2 = this;
+
+            axios.patch('/profiles/' + this.$route.params.slug, {
+                'biog': this.biog,
+                'spotify': this.spotify
+            }).then(function (response) {
+                flash('Your informations are now up to date.');
+                _this2.toggle();
+            }).catch(function (err) {
+                flash('Oops! Something went wrong', 'danger');
+                _this2.toggle();
                 console.log(err);
             });
         }
@@ -27886,72 +27932,199 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-8" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-6 p-1" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "btn btn-sm btn-block btn-outline-purple"
-                        },
-                        [
-                          _c("p", { staticClass: "mb-0" }, [
-                            _vm._v("Following "),
-                            _c("span", {
-                              domProps: {
-                                textContent: _vm._s(
-                                  _vm.dataSet.following.length
-                                )
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-6 p-1" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "btn btn-sm btn-block btn-outline-purple"
-                        },
-                        [
-                          _c("p", { staticClass: "mb-0" }, [
-                            _vm._v("Followers "),
-                            _c("span", {
-                              domProps: {
-                                textContent: _vm._s(
-                                  _vm.dataSet.followers.length
-                                )
-                              }
-                            })
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12 mt-2" }, [
-                      _vm.dataSet.profile.biog
-                        ? _c("div", {
-                            domProps: {
-                              textContent: _vm._s(_vm.dataSet.profile.biog)
-                            }
-                          })
-                        : _c("div", [
-                            _vm._v("This earWormer has no biographie yet.")
-                          ])
-                    ]),
-                    _vm._v(" "),
-                    _vm.dataSet.profile.spotify
-                      ? _c("div", { staticClass: "btn btn-link f-xs mt-2" }, [
-                          _c("i", { staticClass: "fab fa-spotify" }),
-                          _vm._v(
-                            " earWormer's spotify playlist\n                    "
+                _vm.dataSet
+                  ? _c("div", { staticClass: "col-8" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-6 p-1" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-block btn-outline-purple"
+                            },
+                            [
+                              _c("p", { staticClass: "mb-0" }, [
+                                _vm._v("Following "),
+                                _c("span", {
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      _vm.dataSet.following.length
+                                    )
+                                  }
+                                })
+                              ])
+                            ]
                           )
-                        ])
-                      : _vm._e()
-                  ])
-                ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-6 p-1" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-block btn-outline-purple"
+                            },
+                            [
+                              _c("p", { staticClass: "mb-0" }, [
+                                _vm._v("Followers "),
+                                _c("span", {
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      _vm.dataSet.followers.length
+                                    )
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        !_vm.edit
+                          ? _c("div", [
+                              _c("div", { staticClass: "col-12 mt-1" }, [
+                                _c(
+                                  "label",
+                                  { staticClass: "f-xs semiBold mb-1" },
+                                  [_vm._v("About " + _vm._s(_vm.title))]
+                                ),
+                                _vm._v(" "),
+                                _vm.biog
+                                  ? _c("div", {
+                                      domProps: {
+                                        textContent: _vm._s(_vm.biog)
+                                      }
+                                    })
+                                  : _c("div", [
+                                      _vm._v(
+                                        "This earWormer has no biographie yet."
+                                      )
+                                    ])
+                              ]),
+                              _vm._v(" "),
+                              _vm.spotify
+                                ? _c(
+                                    "div",
+                                    { staticClass: "col-12 f-xs mt-2" },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "green",
+                                          attrs: { href: _vm.spotify }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fab fa-spotify"
+                                          }),
+                                          _vm._v(
+                                            " earWormer's spotify playlist\n                            "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          : _c("div", { staticClass: "col-12 mt-2" }, [
+                              _c(
+                                "form",
+                                {
+                                  on: {
+                                    submit: function($event) {
+                                      $event.preventDefault()
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("div", { staticClass: "form-group" }, [
+                                    _c("label", { staticClass: "f-xxs" }, [
+                                      _vm._v(
+                                        "Let other earWormers what you all about"
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("textarea", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.biog,
+                                          expression: "biog"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        rows: "1",
+                                        type: "text",
+                                        placeholder: "I am all about..."
+                                      },
+                                      domProps: { value: _vm.biog },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.biog = $event.target.value
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("label", { staticClass: "mt-2 f-xxs" }, [
+                                      _vm._v(
+                                        "Share your latest spotify playlist"
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.spotify,
+                                          expression: "spotify"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { type: "url" },
+                                      domProps: { value: _vm.spotify },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.spotify = $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "level float-right" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn mr-1 pl-3 pr-3 btn-sm btn-outline-danger",
+                                    on: { click: _vm.toggle }
+                                  },
+                                  [_vm._v("Cancel")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn ml-1 pl-3 pr-3 btn-sm btn-outline-success",
+                                    on: { click: _vm.update }
+                                  },
+                                  [_vm._v("Update")]
+                                )
+                              ])
+                            ])
+                      ])
+                    ])
+                  : _vm._e()
               ],
               1
             ),
@@ -27969,7 +28142,19 @@ var render = function() {
                     _vm._v(" xp")
                   ])
                 ]
-              )
+              ),
+              _vm._v(" "),
+              _vm.owner && !_vm.edit
+                ? _c(
+                    "button",
+                    {
+                      staticClass:
+                        "col-8 btn btn-block btn-sm btn-outline-purple",
+                      on: { click: _vm.toggle }
+                    },
+                    [_vm._v("\n                Edit my profile\n            ")]
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("hr"),

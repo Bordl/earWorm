@@ -108,7 +108,7 @@ a:active {
   z-index: 2;
 }
 
-textarea::placeholder, textarea::placeholder, textarea::placeholder {
+textarea::placeholder, textarea::-webkit-input-placeholder {
   color:  $light-grey !important;
   font-size: .9rem;
 }

@@ -78,9 +78,17 @@ class ProfilesController extends Controller
      * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'biog' => 'string|nullable',
+            'spotify' => 'url|nullable',
+        ]);
+
+        $user->profile->update([
+            'biog' => request('biog'),
+            'spotify' => request('spotify'),
+        ]);
     }
 
     /**

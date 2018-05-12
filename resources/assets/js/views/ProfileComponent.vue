@@ -7,7 +7,7 @@
                 <follow-component class="col-12 p-1 mb-2" :long="true" v-show="!owner" :post="false" @updated="fetch"></follow-component>
                 <avatar-component v-if="dataSet" :profile="dataSet.profile" :isProfilePage="true" class="col-4" :width="100" :height="100"></avatar-component>
 
-                <div class="col-8">
+                <div v-if="dataSet" class="col-8">
                     <div class="row">
                         <div class="col-6 p-1">
                             <div class="btn btn-sm btn-block btn-outline-purple">
@@ -20,13 +20,35 @@
                             </div>
                         </div>
 
-                        <div class="col-12 mt-2">
-                            <div v-if="dataSet.profile.biog" v-text="dataSet.profile.biog"></div>
-                            <div v-else>This earWormer has no biographie yet.</div>
+                        <div v-if="!edit">
+                            <div class="col-12 mt-1">
+                                <label class="f-xs semiBold mb-1">About {{ title }}</label>
+                                <div v-if="biog" v-text="biog"></div>
+                                <div v-else>This earWormer has no biographie yet.</div>
+                            </div>
+
+                            <div v-if="spotify" class="col-12 f-xs mt-2">
+                                <a :href="spotify" class="green">
+                                    <i class="fab fa-spotify"></i>&nbsp;earWormer's spotify playlist
+                                </a>
+                            </div>
                         </div>
 
-                        <div v-if="dataSet.profile.spotify" class="btn btn-link f-xs mt-2">
-                            <i class="fab fa-spotify"></i>&nbsp;earWormer's spotify playlist
+                        <div v-else class="col-12 mt-2">
+                            <form @submit.prevent>
+                                <div class="form-group">
+                                    <label class="f-xxs">Let other earWormers what you all about</label>
+                                    <textarea rows="1" type="text" class="form-control" v-model="biog" placeholder="I am all about..."></textarea>
+
+                                    <label class="mt-2 f-xxs">Share your latest spotify playlist</label>
+                                    <input type="url" class="form-control" v-model="spotify">
+                                </div>
+                            </form>
+
+                            <div class="level float-right">
+                                <button class="btn mr-1 pl-3 pr-3 btn-sm btn-outline-danger" @click="toggle">Cancel</button>
+                                <button class="btn ml-1 pl-3 pr-3 btn-sm btn-outline-success" @click="update">Update</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,6 +58,10 @@
                 <div class="col-8 btn btn-block btn-sm btn-success">
                     <div>{{ title }} has <span v-text="dataSet.profile.xp"></span> xp</div>
                 </div>
+
+                <button v-if="owner && !edit" @click="toggle" class="col-8 btn btn-block btn-sm btn-outline-purple">
+                    Edit my profile
+                </button>
             </div>
 
             <hr>
@@ -81,14 +107,13 @@ export default {
         return {
             title: false,
             dataSet: false,
+            edit: false,
+            biog: '',
+            spotify: '',
         };
     },
 
     computed: {
-        editable() {
-            return App.user.id == this.dataSet.profile.user_id ? true : false
-        },
-
         owner() {
             return App.user.id == this.dataSet.profile.user_id ? true : false
         },
@@ -104,12 +129,35 @@ export default {
                 .then(({data}) => {
                     this.title = data.user.name
                     this.dataSet = data
+                    this.biog = data.profile.biog
+                    this.spotify = data.profile.spotify
                 })
                 .catch(err => {
                     flash('Oops! Something went wrong.', 'danger')
 
                     console.log(err)
                 })
+        },
+
+        toggle() {
+            this.edit = !this.edit
+        },
+
+        update() {
+            axios.patch('/profiles/' + this.$route.params.slug, {
+                    'biog': this.biog,
+                    'spotify': this.spotify,
+                })
+                .then(response => {
+                    flash('Your informations are now up to date.')
+                    this.toggle()
+                })
+                .catch(err => {
+                    flash('Oops! Something went wrong', 'danger')
+                    this.toggle()
+                    console.log(err);
+                })
+
         }
     }
 

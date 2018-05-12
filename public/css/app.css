@@ -10722,29 +10722,13 @@ a:active {
 }
 
 textarea::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   color: #bbbbbb !important;
   font-size: .9rem;
 }
 
-textarea:-ms-input-placeholder,
-textarea:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-  color: #bbbbbb !important;
-  font-size: .9rem;
-}
-
-textarea::-ms-input-placeholder,
-textarea::-ms-input-placeholder,
-textarea::-ms-input-placeholder {
-  color: #bbbbbb !important;
-  font-size: .9rem;
-}
-
 textarea::placeholder,
-textarea::placeholder,
-textarea::placeholder {
+textarea::-webkit-input-placeholder {
   color: #bbbbbb !important;
   font-size: .9rem;
 }
