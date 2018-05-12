@@ -28866,7 +28866,7 @@ var render = function() {
               [
                 _c("avatar-component", {
                   attrs: {
-                    profile: _vm.post.creator.profile,
+                    profile: _vm.reply.owner.profile,
                     width: 25,
                     height: 25
                   }
@@ -28880,7 +28880,7 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "purple",
-                        attrs: { to: "#/profiles/" + _vm.reply.owner.slug }
+                        attrs: { to: "/profiles/" + _vm.reply.owner.slug }
                       },
                       [
                         _c("span", [

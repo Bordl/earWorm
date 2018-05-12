@@ -5,10 +5,10 @@
                 <div class="level">
                     <div class="flex">
                         <div class="level">
-                            <avatar-component :profile="post.creator.profile" :width="25" :height="25"></avatar-component>
+                            <avatar-component :profile="reply.owner.profile" :width="25" :height="25"></avatar-component>
 
                             <p class="flex pl-2 mb-0 f-xs">
-                                <router-link :to="'#/profiles/' + reply.owner.slug" class="purple">
+                                <router-link :to="'/profiles/' + reply.owner.slug" class="purple">
                                     <span><em v-text="reply.owner.name"></em></span>
                                 </router-link>
 
