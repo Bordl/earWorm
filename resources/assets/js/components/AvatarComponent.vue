@@ -21,7 +21,7 @@ export default {
 
 	data() {
 		return {
-            image: 'background: url(\'' + this.profile.avatar_path + '\') center center no-repeat; background-size: cover;',
+            image: 'background: url(\'storage/' + this.profile.avatar_path + '\') center center no-repeat; background-size: cover;',
 		};
     },
 

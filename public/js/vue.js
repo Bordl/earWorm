@@ -32798,7 +32798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	data: function data() {
 		return {
-			image: 'background: url(\'' + this.profile.avatar_path + '\') center center no-repeat; background-size: cover;'
+			image: 'background: url(\'storage/' + this.profile.avatar_path + '\') center center no-repeat; background-size: cover;'
 		};
 	},
 
