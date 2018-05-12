@@ -47,18 +47,16 @@
 
                 <div class="col-12 text-center" v-if="dataSet.posts.length == 0">This earWormer hasn't posted anything yet.</div>
 
-                <div class="col-12 mt-2" v-else v-for="post in dataSet.posts" :key="post.id">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="row">
-                                <div class="col-12">
-                                    <player-component :path="post.recording.path" :postID="post.id"></player-component>
-                                </div>
-                                <div class="col-12 text-center mt-1">
-                                    <router-link :post="post" :to="`/posts/${post.id}`" class="green f-xs">
-                                        <em>See post</em>
-                                    </router-link>
-                                </div>
+                <div class="row mt-2" v-else v-for="post in dataSet.posts" :key="post.id">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <player-component :path="post.recording.path" :postID="post.id"></player-component>
+                            </div>
+                            <div class="col-12 text-center mt-1">
+                                <router-link :post="post" :to="`/posts/${post.id}`" class="green f-xs">
+                                    <em>See post</em>
+                                </router-link>
                             </div>
                         </div>
                     </div>

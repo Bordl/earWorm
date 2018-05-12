@@ -27699,7 +27699,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27720,8 +27720,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_FollowComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_FollowComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PlayerComponent__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PlayerComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_PlayerComponent__);
-//
-//
 //
 //
 //
@@ -27998,44 +27996,42 @@ var render = function() {
                   : _vm._l(_vm.dataSet.posts, function(post) {
                       return _c(
                         "div",
-                        { key: post.id, staticClass: "col-12 mt-2" },
+                        { key: post.id, staticClass: "row mt-2" },
                         [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-4" }, [
-                              _c("div", { staticClass: "row" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "col-12" },
-                                  [
-                                    _c("player-component", {
+                          _c("div", { staticClass: "col-4" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "div",
+                                { staticClass: "col-12" },
+                                [
+                                  _c("player-component", {
+                                    attrs: {
+                                      path: post.recording.path,
+                                      postID: post.id
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-12 text-center mt-1" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "green f-xs",
                                       attrs: {
-                                        path: post.recording.path,
-                                        postID: post.id
+                                        post: post,
+                                        to: "/posts/" + post.id
                                       }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "col-12 text-center mt-1" },
-                                  [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass: "green f-xs",
-                                        attrs: {
-                                          post: post,
-                                          to: "/posts/" + post.id
-                                        }
-                                      },
-                                      [_c("em", [_vm._v("See post")])]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ])
+                                    },
+                                    [_c("em", [_vm._v("See post")])]
+                                  )
+                                ],
+                                1
+                              )
                             ])
                           ])
                         ]
