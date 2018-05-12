@@ -7,9 +7,11 @@
             </a>
 
             <ul class="dropdown-menu f-xs">
-                <li v-for="notification in notifications" :key="notification.id" class="border-bottom p-2">
-                    <div class="green" v-text="notification.data.message" @click="markAsRead(notification)">
-
+                <li v-for="notification in notifications" :key="notification.id">
+                    <div class="card">
+                        <div class="card-body p-3 bg-green">
+                            <div v-text="notification.data.message" @click="markAsRead(notification)"></div>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -30,12 +32,18 @@ export default {
     },
     
     created() {
+        this.init()
         this.fetch()
     },
 
     methods: {
+        init(){
+            setInterval(() => this.fetch(), 3*60*1000)
+            // window.onclick = () => this.fetch();
+        },
+
         fetch() {
-            axios.get('/profiles/' + App.user.id + '/notifications')
+            axios.get('/profiles/' + App.user.slug + '/notifications')
                 .then(({data}) => {
                     this.notifications = data
                 })
@@ -47,7 +55,7 @@ export default {
         },
 
         markAsRead(notification){
-            axios.delete('/profiles/' + App.user.id + '/notifications/' + notification.id)
+            axios.delete('/profiles/' + App.user.slug + '/notifications/' + notification.id)
                 .then( response => {
                     this.fetch()
 
@@ -67,21 +75,18 @@ export default {
 <style>
 .dropdown-menu.show {
     position: fixed;
-    transform: translate3d(-342px, 29px, 0px) !important;
-    top: 50px;
-    left: -1px;
     display: block;
-    width: 102vw;
+    width: 95vw;
     border-radius: 0;
-    padding: 15px 25px;
-    background-color: #eee;
+    padding: 0;
+    border: none;
 }
 
 .notification-number {
     position: absolute;
     top: 7px;
     left: 7px;
-    z-index: 3003;
+    z-index: 2001;
     width: 10px;
     height: 10px;
     background: #8e44ad;

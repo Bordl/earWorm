@@ -10506,6 +10506,10 @@ a.text-dark:focus {
   -moz-box-shadow: none;
 }
 
+.btn-link {
+  color: #16a085;
+}
+
 .btn-create {
   position: fixed;
   bottom: 70px;
@@ -10535,6 +10539,10 @@ body {
 li {
   text-decoration: none;
   list-style: none;
+}
+
+a {
+  color: #8e44ad;
 }
 
 .f-xxs {
@@ -10599,6 +10607,10 @@ li {
 
 .main-grey {
   color: #6b6b6b;
+}
+
+.light-grey {
+  color: #bbbbbb;
 }
 
 .red {
@@ -10707,5 +10719,33 @@ a:active {
   top: 10px;
   left: 20px;
   z-index: 2;
+}
+
+textarea::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #bbbbbb !important;
+  font-size: .9rem;
+}
+
+textarea:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #bbbbbb !important;
+  font-size: .9rem;
+}
+
+textarea::-ms-input-placeholder,
+textarea::-ms-input-placeholder,
+textarea::-ms-input-placeholder {
+  color: #bbbbbb !important;
+  font-size: .9rem;
+}
+
+textarea::placeholder,
+textarea::placeholder,
+textarea::placeholder {
+  color: #bbbbbb !important;
+  font-size: .9rem;
 }
 

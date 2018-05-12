@@ -3,22 +3,25 @@
         <div class="card mb-2 mt-2">
             <div class="card-body">
                 <div class="level">
-                    <div class="flex">
-                        <div class="level">
-                            <follow-component :long="false" v-show="!owner" :post="post"></follow-component>
+                    <div class="flex mr-3">
+                        <div class="mb-0 light level">
+                            <div class="flex">
+                                <div class="level">
+                                    <avatar-component :profile="post.creator.profile" :width="25" :height="25"></avatar-component>
+                                    <p class="flex pl-2 mb-0 f-xs">
+                                        <router-link :to="`/profiles/${post.creator.slug}`" class="purple">
+                                            <em><span v-text="post.creator.name"></span></em>
+                                        </router-link>
+                                    </p>
+                                </div>
+                            </div>
 
-                            <p class="flex pl-2 mb-0">
-                                <router-link :to="`/profiles/${post.creator.name}`">
-                                    <em><span class="light" v-text="post.creator.name"></span>:</em>
-                                </router-link>
-                                <span class="f-xs regular"><em v-text="moment(post.created_at)"></em>...</span>
-                            </p>
+                            <div class="f-xs regular float-right"><em v-text="moment(post.created_at)"></em> ago...</div>
                         </div>
-
                     </div>
 
-                    <subscribe-component :long="false" v-show="!owner" :post="post"></subscribe-component>
-                    <!-- <favorite-component v-show="!owner" :post="post"></favorite-component> -->
+                    <follow-component :long="false" v-show="!owner" :post="post"></follow-component>
+                    <subscribe-component class="pl-1 pr-1" v-show="!owner" :post="post"></subscribe-component>
                 </div>
                 
                 <hr>
@@ -27,9 +30,7 @@
                     <div class="col-8">
                         <router-link :post="post" :to="`/posts/${post.id}`" class="main-grey">
                             <h5>What's this song?</h5>
-                            <p v-if="post.description" class="f-xs m-0">
-                                {{ post.description }}
-                            </p>
+                            <p v-if="post.description" class="f-xs m-0" v-html="post.description"></p>
 
                             <p v-else class="f-xs m-0">This post has no description.</p>
                         </router-link>
@@ -67,10 +68,11 @@
 import PlayerComponent from './PlayerComponent'
 import FollowComponent from './FollowComponent'
 import SubscribeComponent from './SubscribeComponent'
-// import FavoriteComponent from './FavoriteComponent'
+import AvatarComponent from './AvatarComponent'
+
 
 export default {
-    components: {PlayerComponent, FollowComponent, SubscribeComponent},
+    components: {PlayerComponent, FollowComponent, SubscribeComponent, AvatarComponent},
 
     props: ['data'],
 
@@ -87,8 +89,8 @@ export default {
     },
 
     methods: {
-        moment() {
-            return moment(this.post.created_at).fromNow()
+        moment(time) {
+            return moment.distanceInWordsStrict(time, new Date(new Date().getTime() - (1*1000*60*60)))
         }
     }
 

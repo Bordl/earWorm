@@ -31,6 +31,10 @@ li {
   list-style: none;
 }
 
+a {
+  color: $purple;
+}
+
 .f-xxs {font-size: .7rem}
 .f-xs {font-size: .9rem}
 .f-reg {font-size: 1.1rem}
@@ -49,6 +53,7 @@ li {
 .purple {color: $purple}
 .green {color: $green}
 .main-grey {color: $main-grey}
+.light-grey {color: $light-grey}
 .red {color: $red}
 .orange {color: $orange}
 
@@ -101,6 +106,11 @@ a:active {
   top: 10px;
   left: 20px;
   z-index: 2;
+}
+
+textarea::placeholder, textarea::placeholder, textarea::placeholder {
+  color:  $light-grey !important;
+  font-size: .9rem;
 }
 
 

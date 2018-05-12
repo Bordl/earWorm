@@ -21,7 +21,7 @@ export default new Router({
         component: RepliesComponent,
       },
       {
-        path: '/profiles/:name',
+        path: '/profiles/:slug',
         name: 'ProfileComponent',
         component: ProfileComponent,
       },

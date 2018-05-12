@@ -1,6 +1,7 @@
 <template>
-  <div id="navbar-bottom" class="shadow-bottom pt-3">
-      <div v-if="isHome" class="row justify-content-center">
+<div>
+    <div id="navbar-bottom" class="shadow-bottom pt-3">
+        <div v-if="isHome" class="row justify-content-center">
             <div @click="emit('/home', 'Latest Posts')" class="col-3 border-right text-center purple f-reg">
                 <i class="fas fa-home"></i>
             </div>
@@ -13,12 +14,12 @@
                 <i class="fas fa-comment-slash"></i>
             </div>
 
-            <div @click="emit('/home?by=' + name, 'Posts by me')" class="col-3 text-center purple f-reg">
+            <router-link :to="'/profiles/' + slug" class="col-3 text-center purple f-reg">
                 <i class="fas fa-user"></i>
-            </div>
-      </div>
+            </router-link>
+        </div>
 
-      <div v-else class="row justify-content-center">
+        <div v-else class="row justify-content-center">
             <div @click="linkTo('/home', 'Latest Posts')" class="col-3 border-right text-center purple f-reg">
                 <i class="fas fa-home"></i>
             </div>
@@ -31,11 +32,17 @@
                 <i class="fas fa-comment-slash"></i>
             </div>
 
-            <div @click="linkTo('/home?by=' + name, 'Posts by me')" class="col-3 text-center purple f-reg">
+            <router-link :to="'/profiles/' + slug" class="col-3 text-center purple f-reg">
                 <i class="fas fa-user"></i>
-            </div>
-      </div>
-  </div>
+            </router-link>
+        </div>
+    </div>
+
+    <router-link :to="`/earworm`">
+        <button class="btn btn-create f-xl">+</button>
+    </router-link>
+</div>
+  
 </template>
 
 <script>
@@ -49,6 +56,10 @@ export default {
 
         isHome() {
             return this.home == false ? false : true
+        },
+
+        slug() {
+            return App.user.slug
         }
     },
 

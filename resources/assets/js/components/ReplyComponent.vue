@@ -4,14 +4,19 @@
             <div class="card-header">
                 <div class="level">
                     <div class="flex">
-                        <p class="mb-0">
-                            <a :href="'/profiles/' + reply.user_id">
-                                <span><em v-text="reply.owner.name"></em></span>&nbsp;
-                            </a>
+                        <div class="level">
+                            <avatar-component :profile="post.creator.profile" :width="25" :height="25"></avatar-component>
 
-                            <span v-text="moment(reply.created_at)"></span>
-                        </p>
+                            <p class="flex pl-2 mb-0 f-xs">
+                                <router-link :to="'#/profiles/' + reply.owner.slug" class="purple">
+                                    <span><em v-text="reply.owner.name"></em></span>
+                                </router-link>
+
+                                <span class="pr-3 float-right" v-text="moment(reply.created_at)"></span>
+                            </p>
+                        </div>
                     </div>
+
                     <div v-if="creator && validate == 0" class="float-right">
                         <button class="btn btn-sm btn-outline-success f-xxs" @click="validated">
                             <i class="fas fa-check"></i> Right answer
@@ -64,7 +69,7 @@
                     </div>
                         
 
-                    <div v-if="body" v-text="body"></div>
+                    <div v-if="body" v-html="body"></div>
 
                     <div v-if="owner" class="float-right mt-2">
                         <div v-if="!editing && validate == 0">
@@ -79,7 +84,10 @@
 </template>
 
 <script>
+import AvatarComponent from './AvatarComponent'
+
 export default {
+    components: { AvatarComponent},
     props: ['post', 'reply'],
 
     data() {
@@ -130,6 +138,7 @@ export default {
                     answered: 1
                 })
                 .then( ({data}) => {
+                    this.$emit('isValid')
                     flash('You have succesffully validated this answer')
                 })
                 .catch(err => {
@@ -148,6 +157,7 @@ export default {
                     answered: 0
                 })
                 .then( response => {
+                    this.$emit('isValid')
                     flash('You succesfully invalidated this answer')
                 })
                 .catch(err => {
@@ -188,7 +198,7 @@ export default {
         },
 
         moment(time) {
-            return moment(time).fromNow()
+            return moment.distanceInWordsStrict(time, new Date(new Date().getTime() - (1*1000*60*60)))
         }
     }
 

@@ -15,6 +15,11 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->longText('biog')->nullable();
+            $table->string('avatar_path')->default('avatars/default.png');
+            $table->string('spotify')->nullable();
+            $table->unsignedInteger('xp')->default(0);
             $table->timestamps();
         });
     }

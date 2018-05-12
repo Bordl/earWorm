@@ -48,11 +48,15 @@ class ProfilesController extends Controller
      */
     public function show(User $user)
     {
-        $activities = Activity::feed($user);
-        
+        // $activities = Activity::feed($user);
+
         return response([
-            'user'          => $user,
-            'activities'    => $activities
+            'user' => $user,
+            'posts' => $user->posts,
+            'followers' => $user->followers(),
+            'following' => $user->following(),
+            'profile' => $user->profile,
+            // 'activities' => $activities
         ], 200);
     }
 

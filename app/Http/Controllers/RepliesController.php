@@ -12,20 +12,21 @@ class RepliesController extends Controller
     {
         $this->middleware('auth')->except(['index', 'show']);
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, Post $post)
-    {   
+    {
         $replies = $post->replies()->get();
 
         $latest = $replies->sortByDesc('created_at');
 
         return response([
-            'post'      => $post,
-            'replies'      => $latest,
+            'post' => $post,
+            'replies' => $latest,
         ]);
     }
 
@@ -52,17 +53,13 @@ class RepliesController extends Controller
             'link' => 'required_without:body',
         ]);
 
-        $reply = $post->addReply([
-            'user_id'   => auth()->id(),
-            'post_id'   => $post->id,
-            'body'      => request('body'),
-            'link'      => request('link'),
-            'validate'  => 0
-        ]); 
-        
-        if (! $post->isSubscribedTo) {$post->subscribe();};
-        
-        return $reply->load('owner');
+        return $post->addReply([
+            'user_id' => auth()->id(),
+            'post_id' => $post->id,
+            'body' => request('body'),
+            'link' => request('link'),
+            'validate' => 0
+        ])->load('owner');
     }
 
     /**
@@ -105,28 +102,28 @@ class RepliesController extends Controller
         ]);
 
         $reply->update([
-            'body'      => request('body'),
-            'link'      => request('link'),
-            'validate'      => request('validate'),
-        ]);
-
-    }
-
-
-    public function validated(Request $request, Reply $reply)
-    {
-        if(auth()->id() !== request('user_id')) return;
-
-        $reply->update([
-            'validate'      => request('validate'),
-        ]);
-
-        $reply->post->update([
-            'answered' => request('answered')
+            'body' => request('body'),
+            'link' => request('link'),
+            'validate' => request('validate'),
         ]);
 
         return $reply;
+    }
 
+    public function validated(Request $request, Reply $reply)
+    {
+        if (auth()->id() !== request('user_id')) {
+            return;
+        }
+
+        $reply->updateReply($request);
+
+        $validate = request('validate');
+        if ($validate == 0) {
+            return $reply->unNotifySubscribers();
+        }
+
+        return $reply->post->announceValidation($reply);
     }
 
     /**
@@ -140,13 +137,16 @@ class RepliesController extends Controller
         $this->authorize('update', $reply);
 
         $post = $reply->post;
-        if ($post->canUnsubscribe($post)) {$post->unsubscribe();}
 
-        $reply->deleteAssociatedNotification()
+        if ($post->canUnsubscribe($post)) {
+            $post->unsubscribe();
+        }
+
+        $reply->unNotifySubscribers()
             ->delete();
 
         return response([
-            'message'   => 'Reply successfully deleted.'
+            'message' => 'Reply successfully deleted.'
         ], 200);
     }
 }

@@ -4,10 +4,6 @@
 
         <posts-component class="margin-nav"></posts-component>
 
-        <router-link :to="`/earworm`">
-            <button class="btn btn-create f-xl">+</button>
-        </router-link>
-
         <nav-bottom :home="true"></nav-bottom>
   </div>
 </template>

@@ -23,7 +23,7 @@ class CreateFollowSubscriptionsTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            
+
             $table->foreign('follower_id')
                 ->references('id')
                 ->on('users')

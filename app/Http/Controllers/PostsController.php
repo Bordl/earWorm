@@ -32,7 +32,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -47,16 +47,9 @@ class PostsController extends Controller
             'description' => 'string|nullable'
         ]);
 
-        // create new post
-        // $post = Post::create([
-        //     'user_id'   => request('user_id'),
-        //     'description'   => request('description')
-        // ])->subscribe();
-
-
         $post = $user->createPost([
-            'user_id'   => auth()->id(),
-            'description'   => request('description')
+            'user_id' => auth()->id(),
+            'description' => request('description')
         ])->subscribe();
 
         return $post->id;
@@ -105,7 +98,7 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
         $this->authorize('update', $post);
-        
+
         $post->delete();
 
         return response([

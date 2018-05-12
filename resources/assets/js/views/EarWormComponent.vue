@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-top :home="false" title="New earWorm"></nav-top>
+    <nav-top :home="false" :back="true" title="New earWorm"></nav-top>
 
     <div class="full-height flex-center">
         <div class="flex-wrapper col-11">
@@ -73,7 +73,7 @@
                     <form @submit.prevent="create">
                         <div class="form-group">
                             <label class="semiBold pl-3" for="description">Provide more info (optional)</label>
-                            <textarea id="description" class="form-control" placeholder="Mid 80s Pop/Rock tune..." rows="3" v-model="description" maxlength="150"></textarea>
+                            <textarea id="description" class="form-control" placeholder="Use the @ symbol to call out other users" rows="3" v-model="description" maxlength="150"></textarea>
                         </div>
 
                         <button v-if="dataUrl.length > 0" class="btn btn-block btn-outline-success">
@@ -89,9 +89,15 @@
     </div>
   </div>
 </template>
-
+  
 <script>
 import NavTop from '../partials/NavTop'
+import $ from 'jquery';
+import 'jquery.caret'
+import 'at.js'
+import 'at.js/dist/css/jquery.atwho.css'
+
+window.$ = window.jQuery = $;
 
 export default {
     components: {NavTop},
@@ -112,7 +118,19 @@ export default {
 
     mounted(){
         this.init()
-        return this.audioElement = document.getElementById("audio")
+        this.audioElement = document.getElementById("audio")
+
+        $('#description').atwho({
+            at: "@",
+            delay: 750,
+            callbacks: {
+                remoteFilter: function(query, callback) {
+                    $.getJSON('/api/users', {q:query}, function(usernames) {
+                        callback(usernames)
+                    })
+                }
+            }
+        })
     },
 
     computed: {
@@ -191,7 +209,7 @@ export default {
         },
 
         create() {
-            axios.post('/posts/' + App.user.name, {
+            axios.post('/posts/' + App.user.slug, {
                 description: this.description,
             })
                 .then(response => {                    
@@ -227,5 +245,9 @@ export default {
 </script>
 
 <style>
-
+.atwho-view .cur {
+    background: #16a085;
+    color: white;
+    width: 70vw;
+}
 </style>

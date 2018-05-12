@@ -8,7 +8,7 @@ window.Popper = require('popper.js').default;
  */
 
 try {
-    window.$ = window.jQuery = require('jquery');
+window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
 } catch (e) {}
@@ -41,7 +41,7 @@ if (token) {
  * A lightweight JavaScript date library for parsing, validating, manipulating,
  * and formatting dates. Guides can be fount @ http://momentjs.com/guides/
  */
-window.moment = require('moment')
+window.moment = require('date-fns')
 
 /**
  * IDB is a library that help indexing / caching files in IndexedDB storage

@@ -11,9 +11,10 @@
                 <div class="form-group">
                     <label class="f-xs">Add a description or ask for more details</label>
                     <textarea name="body" 
-                        id="body" 
+                        id="description" 
                         class="form-control"
                         rows="2"
+						placeholder="Use the @ symbol to mention other users"
                         v-model="body">
                         
                     </textarea>
@@ -36,6 +37,13 @@
 </template>
 
 <script>	
+	import $ from 'jquery';
+	import 'jquery.caret'
+	import 'at.js'
+	import 'at.js/dist/css/jquery.atwho.css'
+
+	window.$ = window.jQuery = $;
+
 	export default {
 		data() {
 			return {
@@ -43,6 +51,20 @@
                 url: '',
 				toggled: false,
 			};
+		},
+
+		mounted(){
+			$('#description').atwho({
+				at: "@",
+				delay: 750,
+				callbacks: {
+					remoteFilter: function(query, callback) {
+						$.getJSON('/api/users', {q:query}, function(usernames) {
+							callback(usernames)
+						})
+					}
+				}
+			})
 		},
 
 		computed: {
@@ -87,3 +109,11 @@
 
 	}
 </script>
+
+<style>
+.atwho-view .cur {
+    background: #16a085;
+    color: white;
+    width: 78vw;
+}
+</style>

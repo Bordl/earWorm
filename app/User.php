@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\UserSubscription;
+use App\Events\PostWasCreated;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -10,13 +10,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $with = ['profile'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'description',
+        'name', 'email', 'password', 'slug',
     ];
 
     /**
@@ -30,7 +32,12 @@ class User extends Authenticatable
 
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'slug';
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 
     public function posts()
@@ -43,50 +50,67 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class);
     }
 
-    public function createPost($post){
-        $post = $this->posts()->create($post);
-        
-        $this->following->filter(function($fol) use ($post) {
-			return $fol->follower_id != $post->follwer_id;
-		})
-			->each
-			->notify($post);
+    public function slug()
+    {
+        return $this->slug;
+    }
 
-		return $post;
+    public function createPost($post)
+    {
+        $post = $this->posts()->create($post);
+
+        event(new PostWasCreated($post));
+
+        // $this->notifyFollowers($post);
+
+        return $post;
+    }
+
+    public function notifyFollowers($post)
+    {
+        $this->followUser
+            ->where('follower_id', '!=', $post->follower_id)
+            ->each
+            ->notify($post);
     }
 
     public function follow($userID = null)
     {
-		$this->following()->create([
-			'follower_id'		    => auth()->id(),
+        $this->followUser()->create([
+            'follower_id' => auth()->id(),
         ]);
 
-		return $this;
+        return $this;
     }
-    
-    public function unfollow($userID = null)
-	{
-		$this->following()
-			->where('user_id', $this->id)
-			->where('follower_id', auth()->id())
-			->delete();
-	}
 
-    public function following()
-	{
-		return $this->hasMany(FollowSubscription::class );
+    public function unfollow($userID = null)
+    {
+        $this->followUser()
+            ->where('user_id', $this->id)
+            ->where('follower_id', auth()->id())
+            ->delete();
     }
-    
+
+    public function followUser()
+    {
+        return $this->hasMany(FollowSubscription::class);
+    }
+
     public function isFollowing($leaderId)
-	{
-		return $this->following()
+    {
+        return $this->followUser()
             ->where('user_id', $leaderId)
             ->where('follower_id', auth()->id())
-			->exists();
+            ->exists();
     }
-    
+
     public function followers()
     {
-        return $this->following()->where('user_id', $this->id)->get();
+        return $this->followUser()->where('user_id', $this->id)->get();
+    }
+
+    public function following()
+    {
+        return $this->followUser()->where('follower_id', $this->id)->get();
     }
 }

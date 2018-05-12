@@ -6,19 +6,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PostWasUpdated extends Notification
+class YouWereMentioned extends Notification
 {
     use Queueable;
 
-    protected $post;
     protected $reply;
+    protected $post;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($post, $reply)
+    public function __construct($post = null, $reply = null)
     {
         $this->post = $post;
         $this->reply = $reply;
@@ -43,9 +43,15 @@ class PostWasUpdated extends Notification
      */
     public function toMail($notifiable)
     {
+        if ($this->reply !== null) {
+            return (new MailMessage)
+                    ->line($this->reply->owner->name . ' mentioned you.')
+                    ->action('Go check it out!', url('https://earworm.bordl.net/#/posts/' . $this->reply->id))
+                    ->line('earworm.bordl.net');
+        }
         return (new MailMessage)
-                    ->line('An earWorm you have subscribed to has been updated.')
-                    ->action('Go see it', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
+                    ->line($this->post->creator->name . ' mentioned you.')
+                    ->action('Notification Action', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
                     ->line('earworm.bordl.net');
     }
 
@@ -57,10 +63,16 @@ class PostWasUpdated extends Notification
      */
     public function toArray($notifiable)
     {
+        if ($this->reply !== null) {
+            return [
+                'message' => $this->reply->owner->name . ' mentioned you. Go check it out!',
+                'postID' => $this->reply->post->id,
+                'replyID' => $this->reply->id,
+            ];
+        }
         return [
-            'message' => $this->reply->owner->name . ' replied to an earWorm you have subscribed to. Go check it out!',
+            'message' => $this->post->creator->name . ' mentioned you. Go check it out!',
             'postID' => $this->post->id,
-            'replyID' => $this->reply->id,
         ];
     }
 }

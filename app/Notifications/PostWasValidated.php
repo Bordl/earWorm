@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class PostWasUpdated extends Notification
+class PostWasValidated extends Notification
 {
     use Queueable;
 
@@ -44,9 +44,9 @@ class PostWasUpdated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('An earWorm you have subscribed to has been updated.')
-                    ->action('Go see it', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
-                    ->line('earworm.bordl.net');
+        ->line('An earWorm you have subscribed has been validated.')
+        ->action('Go see it', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
+        ->line('earworm.bordl.net');
     }
 
     /**
@@ -58,7 +58,7 @@ class PostWasUpdated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => $this->reply->owner->name . ' replied to an earWorm you have subscribed to. Go check it out!',
+            'message' => $this->reply->owner->name . ' Validated your answer. Well done. Go check it out!',
             'postID' => $this->post->id,
             'replyID' => $this->reply->id,
         ];

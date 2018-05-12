@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Notifications\PostWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 
 class PostSubscription extends Model
@@ -19,8 +18,23 @@ class PostSubscription extends Model
         return $this->belongsTo(Post::class);
     }
 
-    public function notify($reply)
+    public function notify($met, $reply)
     {
-        $this->user->notify(new PostWasUpdated($this->post, $reply));
+        $this->user->notify(new $met($this->post, $reply));
+    }
+
+    public function unNotify($postID, $replyID)
+    {
+        if ($this->user->notifications->count() == 0) {
+            return;
+        }
+
+        foreach ($this->user->notifications as $notification) {
+            if (isset($notification->data['replyID'])) {
+                if ($notification->data['postID'] == $postID && $notification->data['replyID'] == $replyID) {
+                    $notification->delete();
+                }
+            }
+        }
     }
 }

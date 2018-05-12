@@ -38,3 +38,5 @@ Route::post('/posts/{post}/favorites', 'FavoritesController@store');
 Route::delete('/posts/{post}/favorites', 'FavoritesController@destroy');
 
 // API
+Route::get('/api/users', 'Api\UsersController@index');
+Route::post('/api/users/{user}/avatar', 'Api\UserAvatarController@store');
