@@ -27994,7 +27994,10 @@ var render = function() {
                   : _vm._l(_vm.dataSet.posts, function(post) {
                       return _c(
                         "div",
-                        { key: post.id, staticClass: "col-3 mt-2" },
+                        {
+                          key: post.id,
+                          staticClass: "col-3 mt-2 pt-2 pr-1 pl-1"
+                        },
                         [
                           _c("div", { staticClass: "row" }, [
                             _c(

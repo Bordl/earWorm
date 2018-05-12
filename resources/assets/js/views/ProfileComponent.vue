@@ -47,7 +47,7 @@
 
                 <div class="col-12 text-center" v-if="dataSet.posts.length == 0">This earWormer hasn't posted anything yet.</div>
 
-                <div class="col-3 mt-2" v-else v-for="post in dataSet.posts" :key="post.id">
+                <div class="col-3 mt-2 pt-2 pr-1 pl-1" v-else v-for="post in dataSet.posts" :key="post.id">
                     <div class="row">
                         <div class="col-12">
                             <player-component :path="post.recording.path" :postID="post.id"></player-component>
