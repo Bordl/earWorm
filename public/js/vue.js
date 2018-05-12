@@ -27992,39 +27992,46 @@ var render = function() {
                       _vm._v("This earWormer hasn't posted anything yet.")
                     ])
                   : _vm._l(_vm.dataSet.posts, function(post) {
-                      return _c("div", { key: post.id, staticClass: "col-4" }, [
-                        _c("div", { staticClass: "row" }, [
-                          _c(
-                            "div",
-                            { staticClass: "col-12" },
-                            [
-                              _c("player-component", {
-                                attrs: {
-                                  path: post.recording.path,
-                                  postID: post.id
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "col-12 text-center mt-1" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "green f-xs",
-                                  attrs: { post: post, to: "/posts/" + post.id }
-                                },
-                                [_c("em", [_vm._v("See post")])]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ])
+                      return _c(
+                        "div",
+                        { key: post.id, staticClass: "col-3 mt-2" },
+                        [
+                          _c("div", { staticClass: "row" }, [
+                            _c(
+                              "div",
+                              { staticClass: "col-12" },
+                              [
+                                _c("player-component", {
+                                  attrs: {
+                                    path: post.recording.path,
+                                    postID: post.id
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "col-12 text-center mt-1" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "green f-xs",
+                                    attrs: {
+                                      post: post,
+                                      to: "/posts/" + post.id
+                                    }
+                                  },
+                                  [_c("em", [_vm._v("See post")])]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
                     })
               ],
               2
