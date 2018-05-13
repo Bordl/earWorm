@@ -46,7 +46,7 @@ class YouWereMentioned extends Notification
         if ($this->reply !== null) {
             return (new MailMessage)
                     ->line($this->reply->owner->name . ' mentioned you.')
-                    ->action('Go check it out!', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
+                    ->action('Go check it out!', url('https://earworm.bordl.net/#/posts/' . $this->reply->post->id))
                     ->line('earworm.bordl.net');
         }
         return (new MailMessage)
