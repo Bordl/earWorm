@@ -13,7 +13,6 @@ class UsersController extends Controller
 
         return User::where('id', '!=', auth()->id())
             ->where('name', 'LIKE', "$search%")
-            ->take(5)
             ->pluck('slug');
     }
 }
