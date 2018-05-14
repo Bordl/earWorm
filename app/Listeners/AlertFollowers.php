@@ -35,7 +35,7 @@ class AlertFollowers
             }
         }
 
-        $post->followUser
+        $event->post->creator->followUser
             ->where('user_id', '!=', $event->post->user_id)
             ->each
             ->notify('\App\Notifications\PostWasUpdated', $event->post);

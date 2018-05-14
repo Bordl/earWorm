@@ -212,7 +212,8 @@ export default {
             axios.post('/posts/' + App.user.slug, {
                 description: this.description,
             })
-                .then(response => {                    
+                .then(response => {
+                    console.log(response.data);    
                     this.postID = response.data
                     this.submitRecording()
                 })

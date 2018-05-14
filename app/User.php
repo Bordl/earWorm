@@ -61,8 +61,6 @@ class User extends Authenticatable
 
         event(new PostWasCreated($post));
 
-        // $this->notifyFollowers($post);
-
         return $post;
     }
 
