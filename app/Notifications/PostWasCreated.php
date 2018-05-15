@@ -42,11 +42,9 @@ class PostWasCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        dd($this->post->post->creator);
-
         return (new MailMessage)
-                    ->line($this->post->creator->name . ' created a new earWorm.')
-                    ->action('Go check it out!', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
+                    ->line($this->post->post->creator->name . ' created a new earWorm.')
+                    ->action('Go check it out!', url('https://earworm.bordl.net/#/posts/' . $this->post->post->id))
                     ->line('earworm.bordl.net');
     }
 
@@ -59,8 +57,8 @@ class PostWasCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => $this->post->creator->name . ' created a new earWorm. Go check it out!',
-            'postID' => $this->post->id,
+            'message' => $this->post->post->creator->name . ' created a new earWorm. Go check it out!',
+            'postID' => $this->post->post->id,
         ];
     }
 }
