@@ -109,8 +109,7 @@ class User extends Authenticatable
 
     public function following()
     {
-        dd($this->followUser()->where('follower_id', $this->id)->count());
-        dd($this->followUser()->where('follower_id', $this->id)->count());
+        dd($this->followUser()->where('user_id', $this->id)->get());
         return $this->followUser()->where('follower_id', $this->id)->get();
     }
 }
