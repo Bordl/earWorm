@@ -35,16 +35,18 @@ class AlertFollowers
             }
         }
 
-        $test = $event->post->creator->userFollowers()
+        $followers = $event->post->creator->userFollowers()
             ->where('follower_id', '!=', $event->post->creator->id)
             ->get();
 
-        dd($test);
+        foreach ($followers as $followers) {
+            $follower->notify('\App\Notifications\PostWasCreated', $event->post);
+        }
 
-        $event->post->creator->userFollowers()
-            ->where('follower_id', '!=', $event->post->creator->id)
-            ->get()
-            ->each
-            ->notify('\App\Notifications\PostWasCreated', $event->post);
+        // $event->post->creator->userFollowers()
+        //     ->where('follower_id', '!=', $event->post->creator->id)
+        //     ->get()
+        //     ->each
+        //     ->notify('\App\Notifications\PostWasCreated', $event->post);
     }
 }
