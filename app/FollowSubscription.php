@@ -14,9 +14,9 @@ class FollowSubscription extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function following()
+    public function followings()
     {
-        return $this->hasMany()(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function notify($post)
