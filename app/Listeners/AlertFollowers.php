@@ -35,7 +35,7 @@ class AlertFollowers
             }
         }
 
-        dd($event->post->creator->followers());
+        dd($event->post->creator->followers()->each->notify($event->post));
 
         $event->post->creator->followers()
             ->each
