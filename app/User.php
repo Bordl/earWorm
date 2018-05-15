@@ -64,17 +64,17 @@ class User extends Authenticatable
         return $post;
     }
 
-    public function notifyFollowers($post)
-    {
-        $this->followUser
-            ->where('follower_id', '!=', $post->follower_id)
-            ->each
-            ->notify($post);
-    }
+    // public function notifyFollowers($post)
+    // {
+    //     $this->userFollower
+    //         ->where('follower_id', '!=', $post->creator()->id)
+    //         ->each
+    //         ->notify($post);
+    // }
 
     public function follow($userID = null)
     {
-        $this->followUser()->create([
+        $this->userFollowers()->create([
             'follower_id' => auth()->id(),
         ]);
 
@@ -83,20 +83,25 @@ class User extends Authenticatable
 
     public function unfollow($userID = null)
     {
-        $this->followUser()
+        $this->userFollowers()
             ->where('user_id', $this->id)
             ->where('follower_id', auth()->id())
             ->delete();
     }
 
-    public function followUser()
+    public function userFollowers()
     {
-        return $this->hasMany(FollowSubscription::class);
+        return $this->belongsTo(FollowSubscription::class, 'user_id');
+    }
+
+    public function userFollowings()
+    {
+        return $this->hasMany(FollowSubscription::class, 'follower_id');
     }
 
     public function isFollowing($leaderId)
     {
-        return $this->followUser()
+        return $this->userFollowers()
             ->where('user_id', $leaderId)
             ->where('follower_id', auth()->id())
             ->exists();
@@ -104,12 +109,12 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->followUser()->where('user_id', $this->id)->get();
+        return $this->userFollowers()->where('user_id', $this->id)->get();
     }
 
     public function following()
     {
-        dd($this->followUser());
-        return $this->followUser()->where('follower_id', $this->id)->get();
+        dd($this->userFollowings()->where('follower_id', $this->id)->get());
+        return $this->userFollowings()->where('follower_id', $this->id)->get();
     }
 }

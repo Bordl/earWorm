@@ -4,7 +4,6 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class PostWasCreated extends Notification
@@ -58,8 +57,8 @@ class PostWasCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message'   => $this->post->creator->name . ' created a new earWorm. Go check it out!',
-            'postID'   => $this->post->id,
+            'message' => $this->post->creator->name . ' created a new earWorm. Go check it out!',
+            'postID' => $this->post->id,
         ];
     }
 }

@@ -21,10 +21,10 @@ class CreateFollowSubscriptionsTable extends Migration
 
             $table->unique(['user_id', 'follower_id']);
 
-            // $table->foreign('user_id')
-            //     ->references('id')
-            //     ->on('users')
-            //     ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
             $table->foreign('follower_id')
                 ->references('id')
