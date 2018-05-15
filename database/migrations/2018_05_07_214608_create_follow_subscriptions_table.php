@@ -19,7 +19,7 @@ class CreateFollowSubscriptionsTable extends Migration
             $table->integer('follower_id')->unsigned();
             $table->timestamps();
 
-            $table->unique(['user_id', 'post_id']);
+            $table->unique(['user_id', 'follower_id']);
 
             // $table->foreign('user_id')
             //     ->references('id')
