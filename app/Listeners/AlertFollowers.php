@@ -26,7 +26,6 @@ class AlertFollowers
      */
     public function handle(PostWasCreated $event)
     {
-        dd($event->post);
         $mentionedUsers = $event->post->mentionedUsers();
 
         foreach ($mentionedUsers as $slug) {
