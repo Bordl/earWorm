@@ -42,7 +42,7 @@ class PostWasCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        dd($this->post);
+        dd($post);
 
         return (new MailMessage)
                     ->line($this->post->creator->name . ' created a new earWorm.')
