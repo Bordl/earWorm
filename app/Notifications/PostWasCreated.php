@@ -42,7 +42,8 @@ class PostWasCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        dd($this->post);
+        dd($this->post->creator);
+
         return (new MailMessage)
                     ->line($this->post->creator->name . ' created a new earWorm.')
                     ->action('Go check it out!', url('https://earworm.bordl.net/#/posts/' . $this->post->id))
