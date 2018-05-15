@@ -20,7 +20,6 @@ class PostWasCreated extends Notification
     public function __construct($post)
     {
         $this->post = $post;
-        dd($this->post);
     }
 
     /**
