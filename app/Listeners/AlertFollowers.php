@@ -40,6 +40,7 @@ class AlertFollowers
             ->get();
 
         foreach ($followers as $follower) {
+            dd($follower);
             $follower->notify('\App\Notifications\PostWasCreated', $event->post);
         }
 
