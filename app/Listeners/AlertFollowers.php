@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\User;
 use App\Events\PostWasCreated;
-use App\Notifications\PostWasCreated as newPost;
 
 class AlertFollowers
 {
@@ -36,10 +35,8 @@ class AlertFollowers
             }
         }
 
-        $event->post->creator->userFollowers()
-            ->where('follower_id', '!=', $event->post->creator->id)
-            ->pluck('follower_id')
+        $event->post->creator->followers()
             ->each
-            ->notify(new newPost($event->post));
+            ->notify('\App\Notifications\PostWasUpdated', $event->post);
     }
 }
