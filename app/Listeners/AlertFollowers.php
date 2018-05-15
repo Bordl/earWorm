@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\User;
 use App\Events\PostWasCreated;
+use App\Notifications\PostWasCreated as createdPost;
 
 class AlertFollowers
 {
@@ -35,10 +36,8 @@ class AlertFollowers
             }
         }
 
-        dd($event->post->creator->followers()->each->notify($event->post));
-
         $event->post->creator->followers()
             ->each
-            ->notify('\App\Notifications\PostWasCreated', $event->post);
+            ->notify(new createdPost($event->post));
     }
 }
