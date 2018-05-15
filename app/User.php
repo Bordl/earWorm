@@ -91,7 +91,7 @@ class User extends Authenticatable
 
     public function userFollowers()
     {
-        return $this->belongsTo(FollowSubscription::class, 'user_id');
+        return $this->hasMany(FollowSubscription::class, 'user_id');
     }
 
     public function userFollowings()
@@ -109,7 +109,7 @@ class User extends Authenticatable
 
     public function followers()
     {
-        dd($this->userFollowers());
+        dd($this->userFollowers()->where('user_id', $this->id)->get());
         return $this->userFollowers()->where('user_id', $this->id)->get();
     }
 
