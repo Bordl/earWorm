@@ -37,6 +37,7 @@ class AlertFollowers
 
         $event->post->creator->userFollowers()
             ->where('follower_id', '!=', $event->post->creator->id)
+            ->get()
             ->each
             ->notify('\App\Notifications\PostWasCreated', $event->post);
     }
