@@ -35,7 +35,7 @@ class AlertFollowers
             }
         }
 
-        dd($event->post->creator->userFollowers->where('follower_id', '!=', $event->post->user_id)->get());
+        dd($event->post->creator->userFollowers()->where('follower_id', '!=', $event->post->user_id)->get());
 
         $event->post->creator->userFollowers()
             ->where('user_id', '!=', $event->post->user_id)
