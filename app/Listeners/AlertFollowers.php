@@ -39,7 +39,7 @@ class AlertFollowers
             ->where('follower_id', '!=', $event->post->creator->id)
             ->get();
 
-        foreach ($followers as $followers) {
+        foreach ($followers as $follower) {
             $follower->notify('\App\Notifications\PostWasCreated', $event->post);
         }
 
