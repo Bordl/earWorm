@@ -36,8 +36,16 @@ class AlertFollowers
             }
         }
 
-        $event->post->creator->followers()
-            ->each
-            ->notify(new createdPost($event->post));
+        $followers = $event->post->creator->followers();
+
+        $followers->each(function ($follower) use ($event) {
+            $user = User::where('id', $follower->follower_id)->first();
+
+            $user->notify(new createdPost($event->post));
+        });
+
+        // $event->post->creator->followers()
+        //     ->each()
+        //     ->notify(new createdPost($event->post));
     }
 }

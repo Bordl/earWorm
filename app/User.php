@@ -64,14 +64,6 @@ class User extends Authenticatable
         return $post;
     }
 
-    // public function notifyFollowers($post)
-    // {
-    //     $this->userFollower
-    //         ->where('follower_id', '!=', $post->creator()->id)
-    //         ->each
-    //         ->notify($post);
-    // }
-
     public function follow($userID = null)
     {
         $this->userFollowers()->create([
