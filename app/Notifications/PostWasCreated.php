@@ -19,6 +19,7 @@ class PostWasCreated extends Notification
      */
     public function __construct($post)
     {
+        dd($post);
         $this->post = $post;
     }
 
@@ -42,7 +43,7 @@ class PostWasCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        dd($this->post->creator);
+        dd($this->post);
 
         return (new MailMessage)
                     ->line($this->post->creator->name . ' created a new earWorm.')

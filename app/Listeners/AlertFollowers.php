@@ -38,6 +38,6 @@ class AlertFollowers
 
         $event->post->creator->followers()
             ->each
-            ->notify(new createdPost($event->post));
+            ->notify(new createdPost($event->post->creator));
     }
 }
